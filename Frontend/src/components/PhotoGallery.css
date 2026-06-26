@@ -1,0 +1,183 @@
+/* PhotoGallery.css */
+
+/* ── Toggle button (inline in StopCard) ──────────────────────────────────── */
+
+.gallery-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  background: transparent;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  letter-spacing: 0.04em;
+}
+
+.gallery-toggle:hover {
+  border-color: var(--gallery-color, var(--color-accent));
+  color: var(--gallery-color, var(--color-accent));
+}
+
+.gallery-toggle__icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.gallery-toggle__label {
+  line-height: 1;
+}
+
+/* ── Lightbox overlay ─────────────────────────────────────────────────────── */
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 12, 0.88);
+  backdrop-filter: blur(6px);
+}
+
+.gallery-lightbox__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: min(90vw, 820px);
+  z-index: 1;
+}
+
+/* ── Main image ───────────────────────────────────────────────────────────── */
+
+.gallery-lightbox__img-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #1a1f1c;
+  position: relative;
+}
+
+.gallery-lightbox__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: gallery-fade 0.25s ease;
+}
+
+@keyframes gallery-fade {
+  from { opacity: 0; transform: scale(1.03); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Navigation arrows ────────────────────────────────────────────────────── */
+
+.gallery-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(22, 36, 31, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border-radius: 50%;
+  width: 2.6rem;
+  height: 2.6rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+  z-index: 2;
+}
+
+.gallery-lightbox__nav:hover {
+  background: rgba(22, 36, 31, 0.85);
+}
+
+.gallery-lightbox__nav--prev { left: -1.5rem; }
+.gallery-lightbox__nav--next { right: -1.5rem; }
+
+/* ── Close button ─────────────────────────────────────────────────────────── */
+
+.gallery-lightbox__close {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  background: rgba(22, 36, 31, 0.75);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: background 0.15s ease;
+}
+
+.gallery-lightbox__close:hover {
+  background: rgba(180, 50, 30, 0.85);
+}
+
+/* ── Dot indicators ───────────────────────────────────────────────────────── */
+
+.gallery-lightbox__dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.gallery-lightbox__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.gallery-lightbox__dot--active {
+  background: #fff;
+  transform: scale(1.3);
+}
+
+/* ── Caption ──────────────────────────────────────────────────────────────── */
+
+.gallery-lightbox__caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .gallery-lightbox__nav--prev { left: 0.25rem; }
+  .gallery-lightbox__nav--next { right: 0.25rem; }
+  .gallery-lightbox__close { top: 0.25rem; right: 0.25rem; }
+}

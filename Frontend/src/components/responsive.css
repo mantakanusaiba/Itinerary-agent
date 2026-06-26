@@ -1,0 +1,49 @@
+/* responsive.css */
+
+/* STOP CARD GRID */
+
+@media (min-width: 680px) {
+    .day-block__stops {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .day-block__stops {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 560px) {
+
+    .stop-card {
+        padding-left: 0.75rem;
+    }
+
+    .stop-card__top-row {
+        gap: 0.5rem;
+    }
+
+    .source-row {
+        grid-template-columns: 1fr;
+    }
+
+    .trip-form,
+    .loading-state,
+    .error-card {
+        padding: 1.5rem;
+    }
+
+    .trip-bar__summary {
+        gap: 0.35rem;
+        font-size: 0.88rem;
+    }
+
+    .trip-bar__city {
+        font-size: 0.9rem;
+    }
+}

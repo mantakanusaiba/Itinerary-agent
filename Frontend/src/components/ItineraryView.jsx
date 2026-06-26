@@ -67,24 +67,27 @@ function StopCard({
           )}
         </blockquote>
 
-        {/* ── What else is nearby? ── */}
-        <NearbyStops
-          stop={stop}
-          city={city}
-          vibe={vibe}
-          allItineraryStops={allItineraryStops}
-          filteredSources={filteredSources}
-          dayColor={dayColor}
-        />
+        {/* ── Bottom actions: Nearby + Chat ── */}
+        <div className="stop-card__actions">
+          {/* ── What else is nearby? ── */}
+          <NearbyStops
+            stop={stop}
+            city={city}
+            vibe={vibe}
+            allItineraryStops={allItineraryStops}
+            filteredSources={filteredSources}
+            dayColor={dayColor}
+          />
 
-        {/* ── Ask about this stop ── */}
-        <StopChat
-          stop={stop}
-          city={city}
-          vibe={vibe}
-          filteredSources={filteredSources}
-          dayColor={dayColor}
-        />
+          {/* ── Ask about this stop ── */}
+          <StopChat
+            stop={stop}
+            city={city}
+            vibe={vibe}
+            filteredSources={filteredSources}
+            dayColor={dayColor}
+          />
+        </div>
       </div>
     </li>
   );

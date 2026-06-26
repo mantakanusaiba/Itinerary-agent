@@ -10,7 +10,62 @@
 
 .results__header {
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+}
+
+.results__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+/* ── Save Trip button ── */
+.btn-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.6rem 1.1rem;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(45, 185, 160, 0.35);
+    white-space: nowrap;
+}
+
+.btn-save:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(45, 185, 160, 0.45);
+}
+
+.btn-save:active {
+    transform: translateY(0);
+}
+
+.btn-save--saved {
+    background: var(--green);
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.35);
+    animation: popIn 0.3s ease;
+}
+
+.btn-save--saved:hover {
+    background: #1e9450;
+    box-shadow: 0 4px 14px rgba(39, 174, 96, 0.45);
 }
 
 .error-card {
@@ -301,6 +356,28 @@
     .day-block__stops {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+/* ── Stop card action row — nearby + chat grouped together ── */
+.stop-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--color-line);
+    padding-top: 0.85rem;
+}
+
+/* Remove duplicate top borders/margins since parent handles them */
+.stop-card__actions .nearby-stops {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+}
+
+.stop-card__actions .stopchat {
+    margin-top: 0.5rem;
+    border-top: 1px dashed var(--color-line);
+    padding-top: 0.75rem;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
