@@ -1,0 +1,185 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Weather Widget
+   ───────────────────────────────────────────────────────────────────── */
+
+.weather-widget {
+    background: var(--color-paper, #fff);
+    border: 1.5px solid var(--color-line, #e5e7eb);
+    border-radius: var(--radius, 10px);
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+}
+
+.weather-widget--loading,
+.weather-widget--error {
+    padding: 1rem 1.25rem;
+}
+
+.weather-widget__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, rgba(56, 152, 236, 0.08) 0%, rgba(124, 200, 255, 0.06) 100%);
+    border: none;
+    width: 100%;
+    text-align: left;
+    gap: 0.75rem;
+    border-bottom: 1.5px solid var(--color-line, #e5e7eb);
+    transition: background 0.15s ease;
+}
+
+.weather-widget--collapsed .weather-widget__header {
+    border-bottom: none;
+}
+
+.weather-widget__header:hover {
+    background: linear-gradient(135deg, rgba(56, 152, 236, 0.13) 0%, rgba(124, 200, 255, 0.10) 100%);
+}
+
+.weather-widget__title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-ink, #1a1a1a);
+    text-transform: uppercase;
+}
+
+.weather-widget__city {
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-muted, #6b7280);
+}
+
+.weather-widget__toggle {
+    font-size: 0.9rem;
+    color: var(--color-muted, #6b7280);
+    flex-shrink: 0;
+}
+
+.weather-widget__spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--color-line, #e5e7eb);
+    border-top-color: #3898ec;
+    border-radius: 50%;
+    animation: weather-spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes weather-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.weather-widget__loading-text,
+.weather-widget__error-text {
+    margin: 0.5rem 0 0;
+    font-size: 0.82rem;
+    color: var(--color-muted, #6b7280);
+}
+
+/* ── Grid of day cards ── */
+
+.weather-widget__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+    padding: 0.75rem 0.5rem 0.85rem;
+    overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+    .weather-widget__grid {
+        grid-template-columns: repeat(7, minmax(60px, 1fr));
+    }
+}
+
+/* ── Individual day card ── */
+
+.weather-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.4rem 0.25rem 0.5rem;
+    border-right: 1px solid var(--color-line, #e5e7eb);
+    transition: background 0.15s ease;
+    border-radius: 6px;
+}
+
+.weather-day:last-child {
+    border-right: none;
+}
+
+.weather-day:hover {
+    background: rgba(56, 152, 236, 0.05);
+}
+
+.weather-day--today {
+    background: linear-gradient(180deg, rgba(56, 152, 236, 0.10) 0%, rgba(56, 152, 236, 0.03) 100%);
+    border-radius: 8px;
+}
+
+.weather-day__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted, #6b7280);
+}
+
+.weather-day--today .weather-day__label {
+    color: #3898ec;
+}
+
+.weather-day__date {
+    font-size: 0.65rem;
+    color: var(--color-muted, #9ca3af);
+}
+
+.weather-day__emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin: 0.15rem 0;
+}
+
+.weather-day__label-text {
+    font-size: 0.6rem;
+    color: var(--color-muted, #9ca3af);
+    text-align: center;
+    line-height: 1.1;
+}
+
+.weather-day__temps {
+    display: flex;
+    align-items: baseline;
+    gap: 0.15rem;
+    margin-top: 0.1rem;
+}
+
+.weather-day__high {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-ink, #1a1a1a);
+}
+
+.weather-day__sep {
+    font-size: 0.7rem;
+    color: var(--color-muted, #9ca3af);
+}
+
+.weather-day__low {
+    font-size: 0.72rem;
+    color: var(--color-muted, #6b7280);
+}
+
+.weather-day__rain {
+    font-size: 0.6rem;
+    color: #3898ec;
+    font-weight: 600;
+}

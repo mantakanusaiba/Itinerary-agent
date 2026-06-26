@@ -1,0 +1,95 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Budget Bar — daily cost estimator
+   ───────────────────────────────────────────────────────────────────── */
+
+.budget-bar {
+    background: color-mix(in srgb, var(--budget-color) 8%, white);
+    border: 1.5px solid color-mix(in srgb, var(--budget-color) 30%, transparent);
+    border-radius: var(--radius, 10px);
+    overflow: hidden;
+    font-size: 0.82rem;
+}
+
+.budget-bar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    background: color-mix(in srgb, var(--budget-color) 12%, white);
+    border-bottom: 1px solid color-mix(in srgb, var(--budget-color) 20%, transparent);
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.budget-bar__tier {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--budget-color);
+}
+
+.budget-bar__total {
+    font-size: 0.82rem;
+    color: var(--color-ink, #1a1a1a);
+}
+
+.budget-bar__total strong {
+    color: var(--budget-color);
+}
+
+/* ── Stop breakdown rows ── */
+
+.budget-bar__stops {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+}
+
+.budget-stop {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: baseline;
+    gap: 0 0.75rem;
+    padding: 0.35rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--budget-color) 10%, transparent);
+    transition: background 0.12s ease;
+}
+
+.budget-stop:last-child {
+    border-bottom: none;
+}
+
+.budget-stop:hover {
+    background: color-mix(in srgb, var(--budget-color) 6%, transparent);
+}
+
+.budget-stop__name {
+    font-weight: 500;
+    color: var(--color-ink, #1a1a1a);
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.budget-stop__cost {
+    font-weight: 700;
+    color: var(--budget-color);
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+.budget-stop__note {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 0.7rem;
+    color: var(--color-muted, #6b7280);
+    font-style: italic;
+    margin-top: 0.05rem;
+}
