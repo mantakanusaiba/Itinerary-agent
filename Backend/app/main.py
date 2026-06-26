@@ -30,12 +30,16 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Local Guide Agent")
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "http://127.0.0.1:5173",
+        "https://your-app-name.vercel.app", 
+        "*"  
     ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
