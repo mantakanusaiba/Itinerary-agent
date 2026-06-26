@@ -2,7 +2,7 @@
  * API client for the Local Guide Agent backend.
  */
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export async function swapStop({ city, vibe, dayTheme, stopToReplace, otherStops, filteredSources }) {
   const response = await fetch(`${API_BASE}/api/itinerary/swap-stop`, {

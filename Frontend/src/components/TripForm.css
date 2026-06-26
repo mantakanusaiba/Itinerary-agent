@@ -344,11 +344,15 @@
   max-width: var(--max-width);
   margin: 0 auto;
   border-radius: 0;
-  /* Remove the animated gradient border — it clashes on dark bg */
-  border: none;
-  background: transparent;
-  background-image: none;
-  box-shadow: none;
+  /* Override both the gradient border trick AND the .card white background */
+  border: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  background-clip: unset !important;
+  background-origin: unset !important;
+  box-shadow: none !important;
+  /* Allow scroll; base form has overflow:hidden which clips in edit mode */
+  overflow: visible !important;
   padding: 1.25rem 1.5rem 1.25rem;
   animation: fadeIn 0.2s ease both;
 }
@@ -437,6 +441,40 @@
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.5);
   color: var(--white);
+}
+
+/* Budget buttons in edit mode */
+.trip-form--editing .budget-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.trip-form--editing .budget-btn__label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.trip-form--editing .budget-btn__sublabel {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.trip-form--editing .budget-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: var(--coral-light) !important;
+}
+
+.trip-form--editing .budget-btn--active {
+  border-color: var(--coral-light) !important;
+  background: rgba(232, 98, 74, 0.25) !important;
+  box-shadow: 0 0 0 2px rgba(232, 98, 74, 0.3) !important;
+}
+
+.trip-form--editing .budget-btn--active .budget-btn__label {
+  color: var(--white);
+}
+
+/* Loading overlay on dark bg */
+.trip-form--editing .trip-form__loading {
+  background: rgba(15, 27, 45, 0.85);
 }
 
 /* ─────────────────────────────────────────────────────────────────────

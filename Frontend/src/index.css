@@ -380,6 +380,13 @@ button {
   width: 100%;
 }
 
+/* ── Top bar: holds the saved-trips button, pinned top-right ── */
+.app-header__top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
 .app-header__eyebrow {
   display: inline-flex;
   align-items: center;
@@ -498,12 +505,15 @@ button {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(15, 27, 45, 0.92);
+  background: rgba(15, 27, 45, 0.97);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 24px rgba(15, 27, 45, 0.3);
   animation: slideIn 0.3s ease both;
+  /* When the edit form expands, allow it to scroll rather than overflow */
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 /* ─── Main content ─────────────────────────────────────────────────── */
@@ -518,7 +528,7 @@ button {
 
 /* ─── Cards ────────────────────────────────────────────────────────── */
 
-.card {
+.card:not(.trip-form--editing) {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);

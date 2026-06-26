@@ -1,12 +1,13 @@
 # Python
 __pycache__/
 *.pyc
-backend/venv/
-backend/.env
+Backend/venv/
+Backend/.env
 
 # Node
-frontend/node_modules/
-frontend/dist/
+Frontend/node_modules/
+Frontend/dist/
+
 
 # OS
 .DS_Store
