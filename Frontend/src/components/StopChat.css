@@ -1,0 +1,275 @@
+/* ─── StopChat ────────────────────────────────────────────────────────────── */
+
+.stopchat {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.85rem;
+}
+
+/* When nested inside stop-card__actions, parent overrides these */
+
+/* ── Toggle button — more prominent pill ── */
+.stopchat__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1.1em;
+  border-radius: 100px;
+  border: none;
+  background: color-mix(in srgb, var(--chat-color, var(--coral)) 12%, transparent);
+  color: var(--chat-color, var(--coral));
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.stopchat__toggle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  border: 1.5px solid var(--chat-color, var(--coral));
+  opacity: 0.5;
+  transition: opacity 0.18s ease;
+}
+
+.stopchat__toggle:hover::before {
+  opacity: 1;
+}
+
+.stopchat__toggle:hover {
+  background: color-mix(in srgb, var(--chat-color, var(--coral)) 18%, transparent);
+}
+
+.stopchat__toggle--open {
+  background: var(--chat-color, var(--coral));
+  color: #fff;
+}
+
+.stopchat__toggle--open::before {
+  opacity: 0;
+}
+
+.stopchat__toggle--open:hover {
+  background: color-mix(in srgb, var(--chat-color, var(--coral)) 88%, #000);
+}
+
+.stopchat__toggle-icon {
+  font-size: 1em;
+  line-height: 1;
+}
+
+/* ── Chat panel ── */
+.stopchat__panel {
+  margin-top: 0.75rem;
+  border: 2px solid color-mix(in srgb, var(--chat-color, var(--coral)) 30%, var(--border));
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  animation: fadeSlideIn 0.2s ease;
+}
+
+/* Top accent stripe */
+.stopchat__panel::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--chat-color, var(--coral)), color-mix(in srgb, var(--chat-color, var(--coral)) 50%, var(--gold)));
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Messages area ── */
+.stopchat__messages {
+  padding: 0.9rem;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  scroll-behavior: smooth;
+}
+
+/* ── Empty state ── */
+.stopchat__empty {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.stopchat__empty-hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.stopchat__suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.stopchat__suggestion {
+  padding: 0.3em 0.8em;
+  border-radius: 100px;
+  border: 1px solid color-mix(in srgb, var(--chat-color, var(--coral)) 35%, var(--border));
+  background: color-mix(in srgb, var(--chat-color, var(--coral)) 6%, transparent);
+  color: var(--chat-color, var(--coral));
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stopchat__suggestion:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--chat-color, var(--coral)) 15%, transparent);
+  border-color: var(--chat-color, var(--coral));
+}
+
+/* ── Message bubbles ── */
+.stopchat__bubble {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  max-width: 90%;
+}
+
+.stopchat__bubble--user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.stopchat__bubble-text {
+  padding: 0.55em 0.85em;
+  border-radius: 14px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.stopchat__bubble--user .stopchat__bubble-text {
+  background: var(--chat-color, var(--coral));
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.stopchat__bubble--assistant .stopchat__bubble-text {
+  background: var(--off-white);
+  color: var(--ink);
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.stopchat__avatar {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--chat-color, var(--coral));
+  margin-top: 0.3em;
+}
+
+/* Blinking cursor while streaming */
+.stopchat__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ── Error message ── */
+.stopchat__error {
+  font-size: 0.8rem;
+  color: #c0392b;
+  margin: 0;
+  padding: 0.4em 0.7em;
+  background: #fdf0ef;
+  border-radius: var(--radius-sm);
+  border: 1px solid #f5c6c2;
+}
+
+/* ── Input row ── */
+.stopchat__input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid var(--border);
+  background: var(--off-white);
+}
+
+.stopchat__input {
+  flex: 1;
+  resize: none;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5em 0.75em;
+  font-family: var(--font-body);
+  font-size: 0.87rem;
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.45;
+  max-height: 120px;
+  overflow-y: auto;
+  transition: border-color 0.15s ease;
+}
+
+.stopchat__input:focus {
+  outline: none;
+  border-color: var(--chat-color, var(--coral));
+}
+
+.stopchat__input::placeholder {
+  color: var(--muted);
+}
+
+.stopchat__send {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: var(--chat-color, var(--coral));
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.stopchat__send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.stopchat__send:not(:disabled):hover {
+  transform: scale(1.08);
+}
+
+.stopchat__send-spin {
+  display: inline-block;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
