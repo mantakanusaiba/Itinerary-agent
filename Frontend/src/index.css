@@ -1,0 +1,548 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&display=swap');
+
+:root {
+  /* Core palette — from reference image */
+  --coral: #E8624A;
+  --coral-light: #F0896E;
+  --coral-dark: #C94530;
+  --teal: #2DB9A0;
+  --teal-light: #4ECBB4;
+  --teal-dark: #1A9080;
+  --navy: #0F1B2D;
+  --navy-mid: #1E3048;
+  --indigo: #3D5A8A;
+
+  /* Neutrals */
+  --white: #FFFFFF;
+  --off-white: #F8F9FC;
+  --surface: #F0F4F8;
+  --border: #E2E8F0;
+  --muted: #7B8FA6;
+  --ink: #1A2B3C;
+
+  /* Accents */
+  --gold: #F5A623;
+  --green: #27AE60;
+  --purple: #7B5EA7;
+
+  /* Gradients */
+  --grad-hero: linear-gradient(135deg, #0F1B2D 0%, #1E3048 40%, #2D4A6E 100%);
+  --grad-coral: linear-gradient(135deg, #E8624A, #F5A623);
+  --grad-teal: linear-gradient(135deg, #2DB9A0, #3D8AD4);
+  --grad-card: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 244, 248, 0.9) 100%);
+  --grad-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+
+  /* ── Legacy variable aliases (used by component CSS files) ── */
+  --color-paper: var(--white);
+  --color-canvas: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-accent: var(--coral);
+  --color-accent-ink: var(--coral-dark);
+  --color-reject: var(--coral-dark);
+  --shadow-card: var(--shadow-sm);
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
+
+  /* Spacing & shape */
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --max-width: 1180px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(15, 27, 45, 0.08), 0 2px 8px rgba(15, 27, 45, 0.06);
+  --shadow-md: 0 4px 16px rgba(15, 27, 45, 0.10), 0 8px 32px rgba(15, 27, 45, 0.08);
+  --shadow-lg: 0 12px 40px rgba(15, 27, 45, 0.16), 0 4px 16px rgba(15, 27, 45, 0.10);
+  --shadow-coral: 0 8px 24px rgba(232, 98, 74, 0.35);
+  --shadow-teal: 0 8px 24px rgba(45, 185, 160, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--off-white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+a {
+  color: var(--coral);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ─── Keyframe library ─────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+
+  66% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes floatSlow {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dot-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes bar-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  70% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes orb-drift {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-20px, 15px) scale(0.97);
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─── Shared stamp ─────────────────────────────────────────────────── */
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2em 0.65em;
+  border: 1.5px solid currentColor;
+  border-radius: 4px;
+  white-space: nowrap;
+  transform: rotate(-1.5deg);
+}
+
+.stamp::before {
+  content: '';
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.stamp--keep {
+  color: var(--teal-dark);
+}
+
+.stamp--reject {
+  color: var(--coral-dark);
+  transform: rotate(1.2deg);
+}
+
+.stamp--verified {
+  color: var(--gold);
+  transform: rotate(-1deg);
+}
+
+/* ─── App shell ────────────────────────────────────────────────────── */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── HERO HEADER ──────────────────────────────────────────────────── */
+
+.app-header {
+  background: var(--grad-hero);
+  color: var(--white);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ambient orbs */
+.app-header::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(232, 98, 74, 0.18) 0%, transparent 65%);
+  top: -200px;
+  right: -100px;
+  animation: orb-drift 14s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(45, 185, 160, 0.14) 0%, transparent 65%);
+  bottom: -150px;
+  left: -80px;
+  animation: orb-drift 18s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+
+.app-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3.5rem 2rem 3rem;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.app-header__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin: 0 0 1rem;
+  animation: fadeUp 0.5s ease both;
+}
+
+.app-header__eyebrow::before {
+  content: '✦';
+  font-size: 0.7rem;
+}
+
+.app-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.5s ease 0.05s both;
+}
+
+.app-header__logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--grad-coral);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-coral);
+}
+
+.app-header__logo-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.app-header__logo-name em {
+  font-style: italic;
+  color: var(--coral-light);
+}
+
+.app-header__title {
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  color: var(--white);
+  max-width: 14ch;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+
+.app-header__title em {
+  font-style: italic;
+  color: var(--coral-light);
+}
+
+.app-header__subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 1rem;
+  max-width: 50ch;
+  line-height: 1.6;
+  animation: fadeUp 0.6s ease 0.15s both;
+}
+
+/* Floating tag pills in header */
+.app-header__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  animation: fadeUp 0.6s ease 0.2s both;
+}
+
+.app-header__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35em 0.85em;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  animation: float 6s ease-in-out infinite;
+}
+
+.app-header__tag:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.app-header__tag:nth-child(3) {
+  animation-delay: 1.6s;
+}
+
+.app-header__tag:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* ─── Sticky form wrapper ──────────────────────────────────────────── */
+
+.sticky-form-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 27, 45, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(15, 27, 45, 0.3);
+  animation: slideIn 0.3s ease both;
+}
+
+/* ─── Main content ─────────────────────────────────────────────────── */
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+/* ─── Cards ────────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─── Error card ───────────────────────────────────────────────────── */
+
+.error-card {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  text-align: center;
+  border-left: 4px solid var(--coral);
+  animation: popIn 0.4s ease;
+}
+
+.error-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+  color: var(--coral-dark);
+}
+
+.error-card p {
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}

@@ -1,0 +1,695 @@
+/* ─────────────────────────────────────────────────────────────────────
+   TripForm — base styles + editing mode
+   ───────────────────────────────────────────────────────────────────── */
+
+/* ── Hero form card (idle, white background) ── */
+.trip-form {
+  max-width: 1000px;
+  margin: -4rem auto 0;
+  position: relative;
+  z-index: 10;
+  padding: 2.7rem 2.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  /* Animated gradient border */
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(135deg, #E8624A, #F5A623);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s both;
+}
+
+/* Decorative floating blobs */
+.trip-form::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(232, 98, 74, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.trip-form::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(45, 185, 160, 0.10) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float-reverse 8s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Fields ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.field__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Pulse dot before label */
+.field__label::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--coral);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+
+.field input[type="text"] {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--off-white);
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.field input[type="text"]::placeholder {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.field input[type="text"]:focus {
+  outline: none;
+  border-color: var(--coral);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(232, 98, 74, 0.12);
+}
+
+/* ── Days picker ── */
+.days-picker {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.days-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.55rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--off-white);
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.days-btn:hover:not(.days-btn--active) {
+  border-color: var(--coral-light);
+  color: var(--coral);
+  background: rgba(232, 98, 74, 0.05);
+}
+
+.days-btn--active {
+  background: var(--grad-coral);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: var(--shadow-coral);
+  transform: translateY(-1px);
+}
+
+/* ── Vibe chips ── */
+.vibe-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vibe-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.35em 0.85em;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--font-body);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.vibe-chip:hover:not(.vibe-chip--active) {
+  border-color: var(--teal);
+  color: var(--teal-dark);
+  background: rgba(45, 185, 160, 0.06);
+  transform: translateY(-1px);
+}
+
+.vibe-chip--active {
+  background: rgba(45, 185, 160, 0.12);
+  border-color: var(--teal);
+  color: var(--teal-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(45, 185, 160, 0.2);
+}
+
+/* ── Action row ── */
+.trip-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Primary button ── */
+.btn-primary {
+  background: var(--grad-coral);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-coral);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(232, 98, 74, 0.45);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-primary .btn-icon {
+  font-size: 1.1rem;
+}
+
+/* ── Secondary / cancel button ── */
+.btn-secondary,
+.btn-cancel {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover,
+.btn-cancel:hover {
+  border-color: var(--ink);
+  background: var(--off-white);
+}
+
+/* ── Compact sticky bar ── */
+.trip-bar {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.trip-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.trip-bar__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.trip-bar__city {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.trip-bar__dot {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.trip-bar__detail {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.trip-bar__detail--vibe {
+  font-style: italic;
+  color: var(--teal-light);
+}
+
+.trip-bar__edit {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.trip-bar__edit:hover {
+  background: rgba(232, 98, 74, 0.3);
+  border-color: var(--coral-light);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Editing mode — form expanded inside the dark sticky header
+   ───────────────────────────────────────────────────────────────────── */
+
+.trip-form--editing {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-radius: 0;
+  /* Remove the animated gradient border — it clashes on dark bg */
+  border: none;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  padding: 1.25rem 1.5rem 1.25rem;
+  animation: fadeIn 0.2s ease both;
+}
+
+/* Hide decorative blobs in editing mode */
+.trip-form--editing::before,
+.trip-form--editing::after {
+  display: none;
+}
+
+/* Labels → light on dark */
+.trip-form--editing .field__label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.trip-form--editing .field__label::before {
+  background: var(--coral-light);
+  animation: none;
+  /* stop pulsing to keep UI calm */
+}
+
+/* Text inputs */
+.trip-form--editing .field input[type="text"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+}
+
+.trip-form--editing .field input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.trip-form--editing .field input[type="text"]:focus {
+  border-color: var(--coral-light);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(232, 98, 74, 0.25);
+}
+
+/* Day buttons */
+.trip-form--editing .days-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.trip-form--editing .days-btn:hover:not(.days-btn--active) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--coral-light);
+  color: var(--white);
+}
+
+.trip-form--editing .days-btn--active {
+  background: var(--grad-coral);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: var(--shadow-coral);
+}
+
+/* Vibe chips */
+.trip-form--editing .vibe-chip {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.trip-form--editing .vibe-chip:hover:not(.vibe-chip--active) {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--teal-light);
+  color: var(--white);
+}
+
+.trip-form--editing .vibe-chip--active {
+  background: rgba(45, 185, 160, 0.25);
+  border-color: var(--teal-light);
+  color: var(--teal-light);
+}
+
+/* Cancel button adapts to dark background */
+.trip-form--editing .btn-cancel {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.trip-form--editing .btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--white);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Loading overlay & success checkmark
+   ───────────────────────────────────────────────────────────────────── */
+
+.trip-form__loading {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 100;
+  border-radius: inherit;
+}
+
+.trip-form__loading.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f0f0f0;
+  border-top: 3px solid var(--coral);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.success-checkmark {
+  display: none;
+  width: 80px;
+  height: 80px;
+  margin: 16px auto;
+}
+
+.success-checkmark.show {
+  display: block;
+  animation: scaleIn 0.5s ease;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke: #2DB9A0;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+/* ── Ripple ── */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Keyframes
+   ───────────────────────────────────────────────────────────────────── */
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(160deg);
+  }
+}
+
+@keyframes float-reverse {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(-160deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(232, 98, 74, 0.6);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(232, 98, 74, 0);
+  }
+
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(232, 98, 74, 0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ── Budget Tier Picker ── */
+
+.budget-picker {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.budget-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  padding: 0.65rem 1rem;
+  flex: 1;
+  min-width: 120px;
+  background: var(--color-paper, #fff);
+  border: 1.5px solid var(--color-line, #e5e7eb);
+  border-radius: var(--radius, 10px);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.budget-btn:hover:not(:disabled) {
+  border-color: var(--accent, #E8624A);
+  background: rgba(232, 98, 74, 0.04);
+}
+
+.budget-btn--active {
+  border-color: var(--accent, #E8624A);
+  background: rgba(232, 98, 74, 0.06);
+  box-shadow: 0 0 0 2px rgba(232, 98, 74, 0.18);
+}
+
+.budget-btn__emoji {
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.budget-btn__label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--color-ink, #1a1a1a);
+}
+
+.budget-btn__sublabel {
+  font-size: 0.7rem;
+  color: var(--color-muted, #6b7280);
+  line-height: 1.2;
+}
+
+.trip-bar__detail--budget {
+  color: var(--accent, #E8624A);
+  font-weight: 600;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 560px) {
+  .trip-form {
+    padding: 1.5rem 1rem 1.25rem;
+    margin-top: -2rem;
+  }
+
+  .days-picker {
+    gap: 0.4rem;
+  }
+
+  .days-btn {
+    min-width: 60px;
+    font-size: 0.82rem;
+    padding: 0.45rem 0.4rem;
+  }
+
+  .trip-form--editing {
+    padding: 1rem;
+  }
+
+  .budget-btn {
+    min-width: 90px;
+    padding: 0.5rem 0.65rem;
+  }
+}
