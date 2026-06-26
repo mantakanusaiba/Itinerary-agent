@@ -36,8 +36,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://your-app-name.vercel.app", 
-        "*"  
+        "https://itinerary-agent-l7bo6bh3p-mantaka-nusaibas-projects.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
