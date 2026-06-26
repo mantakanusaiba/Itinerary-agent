@@ -1,0 +1,141 @@
+/* ── NearbyStops ───────────────────────────────────────────────────────────── */
+
+.nearby-stops {
+  margin-top: 0.75rem;
+  --nearby-color: #4f6f52;
+}
+
+/* ── Trigger button — stands out with solid teal-style fill ── */
+.nearby-stops__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.05rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: #fff;
+  background: var(--nearby-color, #4f6f52);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: filter 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--nearby-color, #4f6f52) 40%, transparent);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  position: relative;
+}
+
+.nearby-stops__trigger:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--nearby-color, #4f6f52) 45%, transparent);
+}
+
+.nearby-stops__trigger:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.nearby-stops__trigger:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.nearby-stops__trigger--loading {
+  background: color-mix(in srgb, var(--nearby-color, #4f6f52) 70%, #888);
+}
+
+/* ── Spinner icon ── */
+.nearby-stops__spin {
+  display: inline-block;
+  animation: nearby-spin 0.8s linear infinite;
+}
+
+@keyframes nearby-spin {
+  to { transform: rotate(360deg); }
+}
+
+.nearby-stops__icon {
+  font-size: 0.95em;
+}
+
+/* ── Error message ── */
+.nearby-stops__error {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: #c0392b;
+  padding: 0.35em 0.6em;
+  background: #fdf0ef;
+  border-radius: 6px;
+  border: 1px solid #f5c6c2;
+}
+
+/* ── Suggestions list ── */
+.nearby-stops__list {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  animation: fadeSlideDown 0.2s ease;
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nearby-stops__item {
+  padding: 0.65rem 0.9rem;
+  background: color-mix(in srgb, var(--nearby-color, #4f6f52) 7%, var(--white));
+  border: 1px solid color-mix(in srgb, var(--nearby-color, #4f6f52) 25%, var(--border));
+  border-left: 3px solid var(--nearby-color, #4f6f52);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.nearby-stops__item-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+
+.nearby-stops__item-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.nearby-stops__item-walk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--nearby-color, #4f6f52);
+  background: color-mix(in srgb, var(--nearby-color, #4f6f52) 12%, transparent);
+  padding: 0.1em 0.55em;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nearby-stops__item-category {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--nearby-color, #4f6f52);
+  opacity: 0.8;
+  margin-bottom: 0.3rem;
+}
+
+.nearby-stops__item-why {
+  margin: 0;
+  font-size: 0.81rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
