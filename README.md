@@ -10,9 +10,8 @@ AI Itinerary Agent
 
 ## Live Demo
 
-- **Frontend (Vercel):** https://your-app.vercel.app
-- **Backend API (Render):** https://your-app.onrender.com
-- **API Documentation:** https://your-app.onrender.com/docs
+- **Frontend (Vercel):** https://itinerary-agent.vercel.app
+- **Backend API (Render):** https://itinerary-agent.onrender.com
 
 > **Note**
 > The backend is hosted on Render's free tier. If the API has been idle for around 15 minutes, the first request may take 30–60 seconds while the service wakes up.
