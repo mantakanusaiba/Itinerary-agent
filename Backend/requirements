@@ -1,0 +1,15 @@
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-dotenv>=1.0
+pydantic>=2.9
+
+# Agent orchestration
+langgraph>=0.2
+
+# Geocoding (Nominatim, free, no key required)
+requests>=2.32
+
+# LLM + search clients (used directly, no LangChain wrapper layer needed —
+# see README "Tech stack" notes for why)
+groq>=0.11
+tavily-python>=0.5
