@@ -7,6 +7,18 @@ AI Itinerary Agent
 
 ---
 
+
+## Live Demo
+
+- **Frontend (Vercel):** https://your-app.vercel.app
+- **Backend API (Render):** https://your-app.onrender.com
+- **API Documentation:** https://your-app.onrender.com/docs
+
+> **Note**
+> The backend is hosted on Render's free tier. If the API has been idle for around 15 minutes, the first request may take 30–60 seconds while the service wakes up.
+
+---
+
 ## The Core Idea
 
 Most "AI trip planner" demos are a thin LLM wrapper that regurgitates the same generic recommendations every travel site already has — "must-visit hidden gems," "top 10 attractions." The interesting engineering problem isn't building a planner; it's asking: **can an agent tell the difference between a genuine first-person recommendation and content written to rank in search?**
@@ -222,3 +234,8 @@ python scripts/test_itinerary_builder.py
 python scripts/test_full_graph.py       # full end-to-end
 ```
 
+
+## Deployment
+
+- **Frontend:** Vercel
+- **Backend:** Render
