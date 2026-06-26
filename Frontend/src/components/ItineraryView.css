@@ -1,0 +1,317 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Results layout
+   ───────────────────────────────────────────────────────────────────── */
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.results__header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.error-card {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.error-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-card p {
+    color: var(--color-muted);
+    margin: 0 0 1.25rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Itinerary view
+   ───────────────────────────────────────────────────────────────────── */
+
+.itinerary-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Day tab navigation
+   ───────────────────────────────────────────────────────────────────── */
+
+.day-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.day-tabs__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    padding: 0.65rem 1.1rem 0.65rem 0.9rem;
+    background: var(--color-paper);
+    border: 1.5px solid var(--color-line);
+    border-left: 3px solid var(--tab-color, var(--color-line));
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    text-align: left;
+    min-width: 8rem;
+    box-shadow: var(--shadow-card);
+}
+
+.day-tabs__tab:hover:not([aria-selected="true"]) {
+    border-color: var(--color-accent);
+}
+
+.day-tabs__tab--active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    border-left-color: var(--tab-color, var(--color-accent));
+    box-shadow: 0 2px 8px rgba(22, 36, 31, 0.18);
+}
+
+.day-tabs__label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+}
+
+.day-tabs__tab--active .day-tabs__label {
+    color: var(--color-accent);
+}
+
+.day-tabs__theme {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.2;
+}
+
+.day-tabs__tab--active .day-tabs__theme {
+    color: var(--color-paper);
+}
+
+.day-block {
+    padding: 1.75rem 1.75rem 1.5rem;
+}
+
+.day-block__header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--day-color, var(--color-line));
+}
+
+.day-block__number {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+}
+
+.day-block__theme {
+    font-size: 1.4rem;
+}
+
+.day-block__stops {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Stop card
+   ───────────────────────────────────────────────────────────────────── */
+
+.stop-card {
+    border-left: none !important;
+    padding-left: 0 !important;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.stop-card:hover {
+    box-shadow: 0 4px 20px rgba(22, 36, 31, 0.12);
+    transform: translateY(-2px);
+}
+
+.stop-card__inner {
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stop-card__top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.stop-card__name {
+    font-size: 1.1rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    flex: 1;
+}
+
+.stop-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+}
+
+.stop-card__time-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    background: var(--day-color, var(--color-accent));
+    color: #fff;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.stop-card__duration {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+}
+
+.stop-card__description {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+/* Pull-quote style for "why it's local" */
+.stop-card__why-quote {
+    margin: 0.25rem 0 0;
+    padding: 0.6rem 0.85rem;
+    border-left: 2px solid var(--day-color, var(--color-accent));
+    background: var(--color-canvas);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stop-card__why-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.stop-card__why-quote p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-ink);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.stop-card__source {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-decoration: none;
+    color: var(--color-accent-ink);
+    margin-top: 0.15rem;
+}
+
+/* Swap icon button */
+.stop-card__swap-icon {
+    background: transparent;
+    border: 1.5px solid var(--color-line);
+    color: var(--color-muted);
+    border-radius: 50%;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+}
+
+.stop-card__swap-icon:hover:not(:disabled) {
+    border-color: var(--day-color, var(--color-accent));
+    color: var(--day-color, var(--color-accent));
+    transform: rotate(30deg);
+}
+
+.stop-card__swap-icon:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.stop-card__swap-spin {
+    display: inline-block;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Day block stops: switch to a 2-column grid on wider screens */
+@media (min-width: 680px) {
+    .day-block__stops {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .day-block__stops {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Swap error
+   ───────────────────────────────────────────────────────────────────── */
+
+.swap-error {
+    background: #fbeae5;
+    border: 1px solid var(--color-reject);
+    color: var(--color-reject);
+    border-radius: var(--radius);
+    padding: 0.7rem 1rem;
+    font-size: 0.88rem;
+}
