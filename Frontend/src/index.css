@@ -265,7 +265,7 @@ select {
   flex-direction: column;
 }
 
-/* Floating glass navigation pill */
+/* Top bar: only the saved-trips button */
 .app-header {
   padding: 1rem 1.25rem 0;
   position: relative;
@@ -278,49 +278,45 @@ select {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.6rem 0.6rem 0.6rem 1.25rem;
+}
+
+.history-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1.15rem 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
   background: rgba(20, 20, 28, 0.6);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.app-header__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  min-width: 0;
+.history-btn:hover {
+  border-color: rgba(255, 162, 74, 0.6);
+  background: rgba(255, 162, 74, 0.1);
 }
 
-.app-header__brand::before {
-  content: '';
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--grad-brand);
-  box-shadow: 0 0 14px rgba(255, 138, 61, 0.8);
-  flex-shrink: 0;
+.history-btn__icon {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.app-header__title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text);
+.history-btn__icon span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
 }
 
-.app-header__subtitle {
-  display: none;
-}
-
-.app-header__top-bar {
-  display: flex;
-  justify-content: flex-end;
+.history-btn__icon span:nth-child(2) {
+  width: 11px;
 }
 
 /* ─── Sticky trip summary ──────────────────────────────────────────── */
@@ -379,22 +375,8 @@ select {
 
 .hero {
   text-align: center;
-  padding: 3.5rem 0 0.5rem;
+  padding: 2.5rem 0 0.5rem;
   animation: rise 0.7s ease both;
-}
-
-.hero__eyebrow {
-  display: inline-block;
-  padding: 0.3rem 0.9rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--primary);
-  background: var(--primary-soft);
-  border: 1px solid rgba(255, 162, 74, 0.35);
-  border-radius: 999px;
-  margin-bottom: 1.5rem;
 }
 
 .hero__title {

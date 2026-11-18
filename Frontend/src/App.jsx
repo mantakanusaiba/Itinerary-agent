@@ -5,7 +5,8 @@ import ItineraryView from "./components/ItineraryView.jsx";
 import SourcesPanel from "./components/SourcesPanel.jsx";
 import WeatherWidget from "./components/WeatherWidget.jsx";
 import DestinationShowcase from "./components/DestinationShowcase.jsx";
-import SavedTripsDropdown from "./components/SavedTripsDropdown.jsx";
+import SavedTripsSidebar from "./components/SavedTripsSidebar.jsx";
+import Footer from "./components/Footer.jsx";
 import { streamItinerary, swapStop } from "./api.js";
 import { tryLoadFromUrl, clearUrlHash, encodeToUrl } from "./utils/shareUrl.js";
 import { saveTrip } from "./utils/savedTrips.js";
@@ -29,8 +30,10 @@ export default function App() {
   // Toast state for "Trip saved!" confirmation
   const [saveToast, setSaveToast] = useState(false);
 
-  // Force SavedTripsDropdown to re-render its badge after a save
+  // Bump to make the saved-trips sidebar re-read storage after a save
   const [savedTripsVersion, setSavedTripsVersion] = useState(0);
+  // Saved-trips sidebar visibility
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // ── Load shared itinerary from URL hash on first mount ──────────────────────
   useEffect(() => {
@@ -162,20 +165,30 @@ export default function App() {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-header__inner">
-          <div className="app-header__brand">
-            <h1 className="app-header__title">Itinerary Planner</h1>
-            <p className="app-header__subtitle">
-              AI-powered travel planning built on local knowledge
-            </p>
-          </div>
-          <div className="app-header__top-bar">
-            <SavedTripsDropdown
-              key={savedTripsVersion}
-              onLoad={handleLoadSavedTrip}
-            />
-          </div>
+          <button
+            type="button"
+            className="history-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={sidebarOpen}
+          >
+            <span className="history-btn__icon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            Saved trips
+          </button>
         </div>
       </header>
+
+      <SavedTripsSidebar
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        version={savedTripsVersion}
+        onLoad={handleLoadSavedTrip}
+        onNewTrip={handleReset}
+      />
 
       {status === "done" && result && (
         <div className="sticky-form-wrapper">
@@ -193,7 +206,6 @@ export default function App() {
         {status === "idle" && (
           <>
             <section className="hero">
-              <span className="hero__eyebrow">AI travel planner</span>
               <h2 className="hero__title">
                 Travel like <span>a local</span>
               </h2>
@@ -263,6 +275,8 @@ export default function App() {
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 }
