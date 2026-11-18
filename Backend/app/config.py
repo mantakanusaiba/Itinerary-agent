@@ -23,7 +23,7 @@ load_dotenv()
 class Settings:
     groq_api_key: str
     tavily_api_key: str
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 
 def _require_env(var_name: str, signup_hint: str) -> str:
