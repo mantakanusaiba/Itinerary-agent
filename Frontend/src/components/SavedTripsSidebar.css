@@ -186,33 +186,3 @@
 .sidebar__clear:hover {
   color: var(--danger);
 }
-
-/* ─────────────────────────────────────────────────────────────────────
-   Desktop: the sidebar stays docked on the left of every page
-   ───────────────────────────────────────────────────────────────────── */
-
-@media (min-width: 1100px) {
-  .sidebar-backdrop {
-    display: none;
-  }
-
-  .sidebar {
-    position: sticky;
-    top: 0;
-    left: auto;
-    bottom: auto;
-    z-index: 20;
-    flex: 0 0 300px;
-    width: 300px;
-    height: 100vh;
-    transform: none;
-    visibility: visible;
-    box-shadow: none;
-    background: linear-gradient(180deg, rgba(24, 24, 36, 0.98), rgba(14, 14, 22, 0.98));
-    transition: none;
-  }
-
-  .sidebar__close {
-    display: none;
-  }
-}

@@ -54,6 +54,7 @@ export default function SavedTripsSidebar({ open, onClose, version, onLoad, onNe
       <aside
         className={`sidebar${open ? " sidebar--open" : ""}`}
         aria-label="Saved trips"
+        aria-hidden={!open}
       >
         <div className="sidebar__header">
           <div>
