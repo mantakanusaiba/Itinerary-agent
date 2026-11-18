@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import "./DestinationShowcase.css";
 
 // Featured destinations in Bangladesh. `image` is a local photo in
@@ -55,7 +55,8 @@ const DESTINATIONS = [
   },
 ];
 
-const AUTO_MS = 5000;
+const AUTO_MS = 2000; // time between automatic slides
+const SWIPE_PX = 40; // minimum drag distance to change slide
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const photoCache = new Map();
 
@@ -132,12 +133,45 @@ export default function DestinationShowcase({ onPick }) {
 
   const count = DESTINATIONS.length;
   const next = useCallback(() => setActive((i) => (i + 1) % count), [count]);
+  const prev = useCallback(() => setActive((i) => (i - 1 + count) % count), [count]);
 
+  // Auto-advance. Depending on `active` restarts the timer after any manual change.
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(next, AUTO_MS);
-    return () => clearInterval(id);
-  }, [paused, next]);
+    const id = setTimeout(next, AUTO_MS);
+    return () => clearTimeout(id);
+  }, [paused, active, next]);
+
+  // Swipe / drag support (touch, pen and mouse)
+  const drag = useRef({ id: null, startX: 0, moved: false });
+
+  function onPointerDown(e) {
+    drag.current = { id: e.pointerId, startX: e.clientX, moved: false };
+    setPaused(true);
+  }
+
+  function onPointerMove(e) {
+    if (drag.current.id !== e.pointerId) return;
+    if (Math.abs(e.clientX - drag.current.startX) > 8) drag.current.moved = true;
+  }
+
+  function endDrag(e) {
+    if (drag.current.id !== e.pointerId) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) >= SWIPE_PX) (dx < 0 ? next : prev)();
+    drag.current.id = null;
+    // Keep `moved` briefly so the click that follows a drag is ignored
+    setTimeout(() => {
+      drag.current.moved = false;
+    }, 0);
+    // Touch has no hover, so resume autoplay once the finger lifts
+    if (e.pointerType !== "mouse") setPaused(false);
+  }
+
+  function onKeyDown(e) {
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  }
 
   // Signed, wrapped distance from the active card: -2..+3 for 6 cards.
   function offsetOf(i) {
@@ -152,8 +186,17 @@ export default function DestinationShowcase({ onPick }) {
       className="showcase"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onKeyDown={onKeyDown}
     >
-      <div className="showcase__stage">
+      <div
+        className="showcase__stage"
+        tabIndex={0}
+        aria-label="Featured destinations. Swipe or use arrow keys to browse."
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+      >
         {DESTINATIONS.map((d, i) => {
           const off = offsetOf(i);
           const abs = Math.abs(off);
@@ -172,7 +215,9 @@ export default function DestinationShowcase({ onPick }) {
               key={d.name}
               className={`showcase__card${isActive ? " showcase__card--active" : ""}`}
               style={style}
-              onClick={() => setActive(i)}
+              onClick={() => {
+                if (!drag.current.moved) setActive(i);
+              }}
               aria-hidden={hidden}
             >
               <div className="showcase__art" />

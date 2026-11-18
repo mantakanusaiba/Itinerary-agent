@@ -11,6 +11,15 @@
   perspective: 1400px;
   transform-style: preserve-3d;
   overflow: visible;
+  touch-action: pan-y; /* vertical scroll still works; horizontal is a swipe */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  outline: none;
+}
+
+.showcase__stage:active {
+  cursor: grabbing;
 }
 
 .showcase__card {
@@ -55,6 +64,7 @@
 
 .showcase__photo {
   object-fit: cover;
+  pointer-events: none;
   animation: fade-photo 0.8s ease both;
 }
 
