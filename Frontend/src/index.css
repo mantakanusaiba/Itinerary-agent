@@ -412,13 +412,6 @@ select {
   color: transparent;
 }
 
-.hero__lead {
-  max-width: 52ch;
-  margin: 1.25rem auto 0;
-  color: var(--text-secondary);
-  font-size: 1.02rem;
-}
-
 .plan-section {
   margin-top: 2.5rem;
   scroll-margin-top: 1.5rem;
@@ -426,10 +419,10 @@ select {
 
 .plan-section__heading {
   text-align: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 1rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
 }

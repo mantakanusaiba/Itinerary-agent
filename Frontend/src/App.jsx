@@ -197,10 +197,6 @@ export default function App() {
               <h2 className="hero__title">
                 Travel like <span>a local</span>
               </h2>
-              <p className="hero__lead">
-                Skip the tourist traps. Get a day-by-day itinerary built from real local
-                recommendations, mapped and ready to go.
-              </p>
             </section>
 
             <DestinationShowcase onPick={handlePickDestination} />
