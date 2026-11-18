@@ -3,7 +3,7 @@ AI Itinerary Agent
 > An agentic travel planner that builds city itineraries the way a knowledgeable local would — by researching the real web and explicitly filtering out generic SEO content before ever writing a single recommendation.
 
 
-**Stack:** Python · FastAPI · LangGraph · Groq (Llama 3.3 70B) · Tavily · React · Leaflet · Nominatim
+**Stack:** Python · FastAPI · LangGraph · Groq (openai/gpt-oss-120b) · Tavily · React · Leaflet · Nominatim
 
 ---
 
