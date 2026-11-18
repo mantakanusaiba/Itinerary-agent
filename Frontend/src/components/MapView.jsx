@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import "./MapView.css";
 
-const DAY_COLORS = ["#c98a2b", "#4f6f52", "#b3492f", "#3a5a78", "#7a5418", "#6b4f8a"];
+const DAY_COLORS = ["#ffa24a", "#38d6c4", "#ff5d8f", "#9b8cff", "#5cb8ff", "#b9e35a"];
 
 // ─── Transport modes ──────────────────────────────────────────────────────────
 const MODES = [
-  { id: "foot", label: "Walk", emoji: "🚶", osrm: "foot", verb: "walk" },
-  { id: "bike", label: "Cycle", emoji: "🚲", osrm: "bike", verb: "cycle" },
-  { id: "car", label: "Drive", emoji: "🚗", osrm: "car", verb: "drive" },
+  { id: "foot", label: "Walk", osrm: "foot", verb: "walk" },
+  { id: "bike", label: "Cycle", osrm: "bike", verb: "cycle" },
+  { id: "car", label: "Drive", osrm: "car", verb: "drive" },
 ];
 
 // ─── OSRM route fetch ─────────────────────────────────────────────────────────
@@ -54,10 +55,10 @@ function googleMapsUrl(stop) {
 function createNumberedIcon(L, number, color) {
   return L.divIcon({
     className: "",
-    html: `<div style="width:30px;height:30px;border-radius:50%;background:${color};color:#fff;
+    html: `<div style="width:30px;height:30px;border-radius:50%;background:${color};color:#0b0b10;
         display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;
-        border:2.5px solid rgba(255,255,255,0.9);box-shadow:0 2px 6px rgba(0,0,0,0.35);
-        font-family:system-ui,sans-serif;">${number}</div>`,
+        border:2px solid #0b0b10;box-shadow:0 2px 8px rgba(0,0,0,0.6);
+        font-family:Inter,system-ui,sans-serif;">${number}</div>`,
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -18],
@@ -70,7 +71,7 @@ function createApproximateIcon(L) {
     html: `<div style="width:26px;height:26px;border-radius:50%;background:#aaa;color:#fff;
         display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;
         border:2px dashed #fff;box-shadow:0 1px 4px rgba(0,0,0,0.18);
-        font-family:system-ui,sans-serif;opacity:0.7;">?</div>`,
+        font-family:Inter,system-ui,sans-serif;opacity:0.7;">?</div>`,
     iconSize: [26, 26],
     iconAnchor: [13, 13],
     popupAnchor: [0, -15],
@@ -80,8 +81,8 @@ function createApproximateIcon(L) {
 function createBadgeIcon(L, text) {
   return L.divIcon({
     className: "",
-    html: `<div style="background:rgba(30,30,30,0.82);color:#fff;padding:3px 7px;
-        border-radius:10px;font-size:11px;white-space:nowrap;font-family:system-ui,sans-serif;
+    html: `<div style="background:rgba(10,10,15,0.9);color:#f5f2ec;border:1px solid rgba(255,255,255,0.15);padding:3px 7px;
+        border-radius:10px;font-size:11px;white-space:nowrap;font-family:Inter,system-ui,sans-serif;
         box-shadow:0 1px 4px rgba(0,0,0,0.3);pointer-events:none;">${text}</div>`,
     iconSize: null,
     iconAnchor: [0, 0],
@@ -159,16 +160,16 @@ function buildMap(container, L, itinerary, activeDayIndex, modeId, onRouteStatus
         : createNumberedIcon(L, exactStopNum, color);
       const gmUrl = googleMapsUrl(p);
       const popup = `
-        <div style="font-family:system-ui,sans-serif;min-width:160px;">
+        <div style="font-family:Inter,system-ui,sans-serif;min-width:160px;">
           <strong style="font-size:14px;">${p.name}</strong><br/>
           <span style="color:#666;font-size:12px;">
             Day ${p.dayNumber} · ${p.time}
-          </span>${isApprox ? `<br/><span style="color:#e07b00;font-size:11px;">📍 Approximate location</span>` : ""}<br/>
+          </span>${isApprox ? `<br/><span style="color:#b45309;font-size:11px;">Approximate location</span>` : ""}<br/>
           <a href="${gmUrl}" target="_blank" rel="noreferrer" style="
             display:inline-block;margin-top:8px;padding:5px 10px;
-            background:#4285F4;color:#fff;border-radius:5px;
+            background:#ff8a3d;color:#1a1006;border-radius:6px;
             text-decoration:none;font-size:12px;font-weight:600;">
-            📍 Open in Google Maps
+            Open in Google Maps
           </a>
         </div>`;
       const marker = L.marker([p.latitude, p.longitude], { icon })
@@ -291,42 +292,23 @@ export default function MapView({ itinerary, activeDayIndex }) {
 
   return (
     <div className="map-view card">
-      {/* ── Transport mode toggle ── */}
-      <div style={{
-        display: "flex", alignItems: "center", gap: "6px",
-        padding: "8px 12px", borderBottom: "1px solid #eee", background: "#fafafa",
-      }}>
-        <span style={{ fontSize: "11px", color: "#888", fontWeight: 600, marginRight: 4 }}>
-          Route by
-        </span>
+      {/* Transport mode toggle */}
+      <div className="map-view__toolbar">
+        <span className="map-view__toolbar-label">Route by</span>
         {MODES.map((m) => (
           <button
             key={m.id}
+            type="button"
             onClick={() => setModeId(m.id)}
-            title={m.label}
-            style={{
-              display: "flex", alignItems: "center", gap: "5px",
-              padding: "4px 12px", borderRadius: "20px",
-              border: modeId === m.id ? "1.5px solid #E8624A" : "1.5px solid #ddd",
-              background: modeId === m.id ? "rgba(232,98,74,0.08)" : "#fff",
-              color: modeId === m.id ? "#c94530" : "#666",
-              fontWeight: modeId === m.id ? 700 : 500,
-              fontSize: "12px", cursor: "pointer",
-              transition: "all 0.15s ease", fontFamily: "system-ui, sans-serif",
-            }}
+            className={`map-view__mode${modeId === m.id ? " map-view__mode--active" : ""}`}
           >
-            <span style={{ fontSize: "14px" }}>{m.emoji}</span>
             {m.label}
           </button>
         ))}
         {routeStatus === "loading" && (
-          <span style={{
-            marginLeft: "auto", fontSize: "11px", color: "#aaa",
-            display: "flex", alignItems: "center", gap: "5px",
-          }}>
-            <span style={{ animation: "spin 0.9s linear infinite", display: "inline-block" }}>↻</span>
+          <span className="map-view__status">
+            <span className="map-view__spinner" />
             Fetching {currentMode.label.toLowerCase()} route…
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </span>
         )}
       </div>
@@ -348,10 +330,9 @@ export default function MapView({ itinerary, activeDayIndex }) {
             </li>
           );
         })}
-        <li style={{ marginLeft: "auto", fontSize: "11px", color: "#888" }}
-          className="map-view__legend-item">
-          {routeStatus === "done" && `${currentMode.emoji} Real ${currentMode.label.toLowerCase()} routes`}
-          {routeStatus === "fallback" && "— Straight-line routes (routing unavailable)"}
+        <li className="map-view__legend-item map-view__legend-note">
+          {routeStatus === "done" && `Real ${currentMode.label.toLowerCase()} routes`}
+          {routeStatus === "fallback" && "Straight-line routes (routing unavailable)"}
         </li>
       </ul>
     </div>

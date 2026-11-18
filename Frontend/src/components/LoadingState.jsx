@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import "./LoadingState.css";
 
 const STAGES = [
-  { key: "planning_complete", label: "Scouting research angles" },
-  { key: "search_complete", label: "Searching the real web" },
-  { key: "filtering_complete", label: "Filtering out listicle noise" },
-  { key: "itinerary_complete", label: "Building your itinerary" },
-  { key: "geocoding_complete", label: "Placing stops on the map" },
+  { key: "planning_complete", label: "Identifying research angles" },
+  { key: "search_complete", label: "Searching web sources" },
+  { key: "filtering_complete", label: "Filtering low-quality sources" },
+  { key: "itinerary_complete", label: "Building itinerary" },
+  { key: "geocoding_complete", label: "Locating stops on the map" },
 ];
 const NOTES = {
   planning_complete: "Identifying the best research angles for your trip.",
@@ -49,7 +49,7 @@ export default function LoadingState({ currentStep }) {
 
   return (
     <div className="loading-state card">
-      <div className="trip-form__eyebrow">Working on it</div>
+      <div className="loading-state__eyebrow">In progress</div>
 
       <p className="loading-state__current-label">{activeLabel}</p>
 

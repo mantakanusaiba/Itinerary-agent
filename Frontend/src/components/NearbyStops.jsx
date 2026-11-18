@@ -5,7 +5,7 @@ import "./NearbyStops.css";
 /**
  * NearbyStops
  *
- * Shows a "What else is nearby?" button on each stop card.
+ * Shows a "Show nearby places" button on each stop card.
  * When clicked, calls the backend and renders 2-3 walking-distance alternatives.
  *
  * Props:
@@ -53,7 +53,7 @@ export default function NearbyStops({
             setState("done");
             setOpen(true);
         } catch (err) {
-            setError(err.message || "Couldn't load nearby suggestions.");
+            setError(err.message || "Could not load nearby suggestions.");
             setState("error");
         }
     }
@@ -70,17 +70,16 @@ export default function NearbyStops({
             >
                 {state === "loading" ? (
                     <>
-                        <span className="nearby-stops__spin">↻</span>
+                        <span className="nearby-stops__spin" />
                         Finding nearby places…
                     </>
                 ) : (
                     <>
-                        <span className="nearby-stops__icon">📍</span>
                         {state === "done"
                             ? open
                                 ? "Hide nearby places"
                                 : `Show ${suggestions.length} nearby place${suggestions.length !== 1 ? "s" : ""}`
-                            : "What else is nearby?"}
+                            : "Show nearby places"}
                     </>
                 )}
             </button>
@@ -96,7 +95,7 @@ export default function NearbyStops({
                             <div className="nearby-stops__item-header">
                                 <span className="nearby-stops__item-name">{s.name}</span>
                                 <span className="nearby-stops__item-walk">
-                                    🚶 {s.walking_minutes} min
+                                    {s.walking_minutes} min walk
                                 </span>
                             </div>
                             <span className="nearby-stops__item-category">{s.category}</span>

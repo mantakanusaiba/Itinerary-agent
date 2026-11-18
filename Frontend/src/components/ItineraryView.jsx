@@ -6,7 +6,7 @@ import StopChat from "./StopChat.jsx";
 import ImageSlideshow from "./ImageSlideshow.jsx";
 import NearbyStops from "./NearbyStops.jsx";
 
-const DAY_COLORS = ["#c98a2b", "#4f6f52", "#b3492f", "#3a5a78", "#7a5418", "#6b4f8a"];
+const DAY_COLORS = ["#ffa24a", "#38d6c4", "#ff5d8f", "#9b8cff", "#5cb8ff", "#b9e35a"];
 
 // ── StopCard ──────────────────────────────────────────────────────────────────
 
@@ -42,10 +42,10 @@ function StopCard({
               className="stop-card__swap-icon"
               onClick={() => onSwap(dayIndex, stopIndex)}
               disabled={isSwapping}
-              title={isSwapping ? "Finding an alternative…" : "Swap this stop"}
-              aria-label={isSwapping ? "Finding an alternative…" : "Swap this stop"}
+              title={isSwapping ? "Finding an alternative…" : "Replace this stop"}
+              aria-label={isSwapping ? "Finding an alternative…" : "Replace this stop"}
             >
-              {isSwapping ? <span className="stop-card__swap-spin">↺</span> : "↺"}
+              {isSwapping ? "Replacing…" : "Replace"}
             </button>
           </div>
         </div>
@@ -53,7 +53,7 @@ function StopCard({
         <p className="stop-card__description">{stop.description}</p>
 
         <blockquote className="stop-card__why-quote">
-          <span className="stop-card__why-label">Why locals love it</span>
+          <span className="stop-card__why-label">Why locals recommend it</span>
           <p>{stop.why_not_touristy}</p>
           {stop.source_reference && (
             <a
@@ -62,7 +62,7 @@ function StopCard({
               target="_blank"
               rel="noreferrer"
             >
-              source ↗
+              View source
             </a>
           )}
         </blockquote>

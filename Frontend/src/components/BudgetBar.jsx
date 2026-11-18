@@ -3,20 +3,17 @@ import "./BudgetBar.css";
 const TIER_CONFIG = {
     budget: {
         label: "Budget",
-        emoji: "🎒",
-        color: "#2DB9A0",
+        color: "#38d6c4",
         description: "Hostels, street food, public transport",
     },
     mid: {
         label: "Mid-range",
-        emoji: "🏨",
-        color: "#F5A623",
+        color: "#ffa24a",
         description: "3-star hotels, sit-down restaurants",
     },
     splurge: {
         label: "Splurge",
-        emoji: "✨",
-        color: "#c98a2b",
+        color: "#ff5d8f",
         description: "Boutique hotels, fine dining, taxis",
     },
 };
@@ -42,7 +39,7 @@ export default function BudgetBar({ stops, budgetTier }) {
         <div className="budget-bar" style={{ "--budget-color": config.color }}>
             <div className="budget-bar__header">
                 <span className="budget-bar__tier">
-                    {config.emoji} {config.label} tier
+                    {config.label} tier
                 </span>
                 <span className="budget-bar__total">
                     Est. day total:{" "}

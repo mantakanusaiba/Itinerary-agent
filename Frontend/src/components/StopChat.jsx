@@ -63,7 +63,6 @@ const SUGGESTIONS = [
 function MessageBubble({ role, content, isStreaming }) {
   return (
     <div className={`stopchat__bubble stopchat__bubble--${role}`}>
-      {role === "assistant" && <span className="stopchat__avatar">✦</span>}
       <div className="stopchat__bubble-text">
         {content}
         {isStreaming && <span className="stopchat__cursor" />}
@@ -131,7 +130,7 @@ export default function StopChat({ stop, city, vibe, filteredSources = [], dayCo
         });
       }
     } catch (err) {
-      setError("Couldn't reach the server. Check it's running and try again.");
+      setError("Could not reach the server. Check it's running and try again.");
       setMessages((prev) => prev.slice(0, -1)); // drop empty assistant bubble
     } finally {
       setStreaming(false);
@@ -154,9 +153,8 @@ export default function StopChat({ stop, city, vibe, filteredSources = [], dayCo
         aria-expanded={open}
         title="Ask about this stop"
       >
-        <span className="stopchat__toggle-icon">{open ? "✕" : "✦"}</span>
         <span className="stopchat__toggle-label">
-          {open ? "Close" : "Ask about this place"}
+          {open ? "Close chat" : "Ask about this place"}
         </span>
       </button>
 
@@ -205,7 +203,7 @@ export default function StopChat({ stop, city, vibe, filteredSources = [], dayCo
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask anything…"
+              placeholder="Type your question"
               rows={1}
               disabled={streaming}
             />
@@ -215,11 +213,7 @@ export default function StopChat({ stop, city, vibe, filteredSources = [], dayCo
               disabled={!input.trim() || streaming}
               aria-label="Send"
             >
-              {streaming ? (
-                <span className="stopchat__send-spin">↻</span>
-              ) : (
-                "↑"
-              )}
+              {streaming ? "Sending" : "Send"}
             </button>
           </div>
         </div>

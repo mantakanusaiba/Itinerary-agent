@@ -4,6 +4,7 @@ import LoadingState from "./components/LoadingState.jsx";
 import ItineraryView from "./components/ItineraryView.jsx";
 import SourcesPanel from "./components/SourcesPanel.jsx";
 import WeatherWidget from "./components/WeatherWidget.jsx";
+import DestinationShowcase from "./components/DestinationShowcase.jsx";
 import SavedTripsDropdown from "./components/SavedTripsDropdown.jsx";
 import { streamItinerary, swapStop } from "./api.js";
 import { tryLoadFromUrl, clearUrlHash, encodeToUrl } from "./utils/shareUrl.js";
@@ -21,6 +22,9 @@ export default function App() {
   const [formCollapsed, setFormCollapsed] = useState(null);
   const [swappingKey, setSwappingKey] = useState(null);
   const [swapError, setSwapError] = useState("");
+
+  // Destination chosen from the landing showcase; prefills the form
+  const [prefillCity, setPrefillCity] = useState("");
 
   // Toast state for "Trip saved!" confirmation
   const [saveToast, setSaveToast] = useState(false);
@@ -107,7 +111,7 @@ export default function App() {
         return { ...prev, itinerary: { ...prev.itinerary, days: newDays } };
       });
     } catch (err) {
-      setSwapError(err.message || "Couldn't find an alternative for that stop.");
+      setSwapError(err.message || "Could not find an alternative for that stop.");
     } finally {
       setSwappingKey(null);
     }
@@ -143,6 +147,13 @@ export default function App() {
     clearUrlHash();
   }
 
+  function handlePickDestination(name) {
+    setPrefillCity(name);
+    setTimeout(() => {
+      document.getElementById("plan")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }
+
   function handleEditTrip() {
     setFormCollapsed((prev) => !prev);
   }
@@ -151,16 +162,18 @@ export default function App() {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-header__inner">
+          <div className="app-header__brand">
+            <h1 className="app-header__title">Itinerary Planner</h1>
+            <p className="app-header__subtitle">
+              AI-powered travel planning built on local knowledge
+            </p>
+          </div>
           <div className="app-header__top-bar">
             <SavedTripsDropdown
               key={savedTripsVersion}
               onLoad={handleLoadSavedTrip}
             />
           </div>
-          <h1 className="app-header__title">Travel like a local</h1>
-          <h6 className="app-header__subtitle">
-            AI-powered travel planning for authentic local experiences.
-          </h6>
         </div>
       </header>
 
@@ -178,14 +191,36 @@ export default function App() {
 
       <main className="app-main">
         {status === "idle" && (
-          <TripForm onSubmit={handleSubmit} disabled={false} />
+          <>
+            <section className="hero">
+              <span className="hero__eyebrow">AI travel planner</span>
+              <h2 className="hero__title">
+                Travel like <span>a local</span>
+              </h2>
+              <p className="hero__lead">
+                Skip the tourist traps. Get a day-by-day itinerary built from real local
+                recommendations, mapped and ready to go.
+              </p>
+            </section>
+
+            <DestinationShowcase onPick={handlePickDestination} />
+
+            <section id="plan" className="plan-section">
+              <h3 className="plan-section__heading">Plan your trip</h3>
+              <TripForm
+                onSubmit={handleSubmit}
+                disabled={false}
+                prefillCity={prefillCity}
+              />
+            </section>
+          </>
         )}
 
         {status === "loading" && <LoadingState currentStep={currentStep} />}
 
         {status === "error" && (
           <div className="card error-card">
-            <h2>That run hit an error</h2>
+            <h2>Unable to generate itinerary</h2>
             <p>{errorMessage}</p>
             <button type="button" className="btn-secondary" onClick={handleReset}>
               Try again
@@ -197,7 +232,7 @@ export default function App() {
           <div className="results">
             <div className="results__header">
               <button type="button" className="btn-secondary" onClick={handleReset}>
-                ← Plan another trip
+                New trip
               </button>
               <div className="results__header-actions">
                 <button
@@ -206,7 +241,7 @@ export default function App() {
                   onClick={handleManualSave}
                   title="Save this trip to your browser"
                 >
-                  {saveToast ? "✓ Saved!" : "⊕ Save trip"}
+                  {saveToast ? "Saved" : "Save trip"}
                 </button>
               </div>
             </div>

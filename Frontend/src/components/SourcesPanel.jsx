@@ -39,10 +39,10 @@ export default function SourcesPanel({ researchAngles, filteredSources, rejected
         aria-expanded={open}
       >
         <span>
-          Sources &amp; filtering — {filteredSources?.length || 0} kept,{" "}
+          Sources and filtering: {filteredSources?.length || 0} kept,{" "}
           {rejectedSources?.length || 0} rejected ({rejectRate}% filtered out)
         </span>
-        <span aria-hidden="true">{open ? "−" : "+"}</span>
+        <span aria-hidden="true">{open ? "Hide" : "Show"}</span>
       </button>
 
       {open && (

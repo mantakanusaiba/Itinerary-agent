@@ -1,0 +1,115 @@
+/* Map view */
+
+.map-view {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.map-view--empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 1.5rem;
+}
+
+.map-view__toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-alt);
+}
+
+.map-view__toolbar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-right: 0.25rem;
+}
+
+.map-view__mode {
+  padding: 0.3rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.map-view__mode:hover:not(.map-view__mode--active) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.map-view__mode--active {
+  background: var(--grad-brand);
+  border-color: transparent;
+  color: var(--on-primary);
+  font-weight: 700;
+}
+
+.map-view__status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.map-view__spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.map-view__canvas {
+  height: 360px;
+  position: relative;
+  z-index: 0;
+}
+
+.map-view__legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.map-view__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.map-view__legend-note {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.map-view__legend-swatch {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Dark map tiles (markers and routes are unaffected) */
+.map-view__canvas .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95) saturate(0.7);
+}
+
+.map-view__canvas .leaflet-container {
+  background: #0d0d12;
+}

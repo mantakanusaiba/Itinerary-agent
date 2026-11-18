@@ -1,0 +1,182 @@
+/* 3D destination carousel */
+
+.showcase {
+  margin: 2.5rem 0 1rem;
+  animation: rise 0.9s ease 0.15s both;
+}
+
+.showcase__stage {
+  position: relative;
+  height: 470px;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+.showcase__card {
+  --w: 270px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--w);
+  height: 420px;
+  margin-left: calc(var(--w) / -2);
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  transform:
+    translateX(calc(var(--off) * 78%))
+    translateZ(calc(var(--abs) * -140px))
+    rotateY(calc(var(--off) * -22deg))
+    scale(calc(1 - var(--abs) * 0.06));
+  transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.24, 1), opacity 0.5s ease;
+  will-change: transform;
+}
+
+.showcase__card--active {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 162, 74, 0.5),
+    0 0 60px rgba(255, 138, 61, 0.2);
+}
+
+.showcase__art,
+.showcase__photo,
+.showcase__shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.showcase__art {
+  background: var(--art);
+}
+
+.showcase__photo {
+  object-fit: cover;
+  animation: fade-photo 0.8s ease both;
+}
+
+@keyframes fade-photo {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.showcase__shade {
+  background:
+    linear-gradient(to top, rgba(5, 5, 9, 0.92) 0%, rgba(5, 5, 9, 0.35) 45%, rgba(5, 5, 9, 0.05) 100%);
+}
+
+.showcase__country {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(10, 10, 15, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.showcase__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.showcase__name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.showcase__rule {
+  width: 36px;
+  height: 2px;
+  background: var(--grad-brand);
+  border-radius: 2px;
+}
+
+.showcase__tagline {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.showcase__cta {
+  margin-top: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--on-primary);
+  background: var(--grad-brand);
+  border: none;
+  border-radius: 999px;
+  box-shadow: var(--shadow-brand);
+  transition: transform 0.2s ease;
+}
+
+.showcase__cta:hover {
+  transform: translateY(-2px);
+}
+
+.showcase__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.showcase__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.showcase__dot--active {
+  width: 28px;
+  background: var(--grad-brand);
+}
+
+@media (max-width: 720px) {
+  .showcase__stage {
+    height: 400px;
+  }
+
+  .showcase__card {
+    --w: 220px;
+    height: 360px;
+  }
+
+  .showcase__card {
+    transform:
+      translateX(calc(var(--off) * 64%))
+      translateZ(calc(var(--abs) * -140px))
+      rotateY(calc(var(--off) * -22deg))
+      scale(calc(1 - var(--abs) * 0.06));
+  }
+}

@@ -1,227 +1,120 @@
-/* ─── SavedTripsDropdown ───────────────────────────────────────────────────── */
+/* Saved trips dropdown */
 
 .saved-trips {
-    position: relative;
-    display: inline-block;
+  position: relative;
 }
 
-/* ── Trigger button — glass pill on dark header ── */
 .saved-trips__trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45em;
-    padding: 0.5em 1.1em 0.5em 0.85em;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 100px;
-    font-size: 0.82rem;
-    font-family: var(--font-body);
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    white-space: nowrap;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s ease;
 }
 
 .saved-trips__trigger:hover {
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(232, 98, 74, 0.6);
-    box-shadow: 0 0 0 3px rgba(232, 98, 74, 0.15);
-}
-
-.saved-trips__trigger[aria-expanded="true"] {
-    background: rgba(232, 98, 74, 0.2);
-    border-color: var(--coral-light);
-    box-shadow: 0 0 0 3px rgba(232, 98, 74, 0.15);
-}
-
-.saved-trips__icon {
-    font-size: 1em;
-    line-height: 1;
-    opacity: 0.85;
+  background: rgba(255, 255, 255, 0.26);
 }
 
 .saved-trips__badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.3em;
-    height: 1.3em;
-    padding: 0 0.3em;
-    background: var(--coral);
-    color: #fff;
-    border-radius: 100px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    line-height: 1;
-    box-shadow: 0 2px 6px rgba(232, 98, 74, 0.4);
+  min-width: 1.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4rem;
+  text-align: center;
+  color: var(--on-primary);
+  background: var(--grad-brand);
+  border-radius: 999px;
 }
 
-.saved-trips__chevron {
-    font-size: 0.55em;
-    opacity: 0.55;
-    transition: transform 0.2s ease;
-}
-
-.saved-trips__trigger[aria-expanded="true"] .saved-trips__chevron {
-    transform: rotate(180deg);
-    opacity: 0.8;
-}
-
-/* ── Dropdown panel ── */
 .saved-trips__dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 0;
-    z-index: 200;
-    min-width: 320px;
-    max-width: 420px;
-    background: var(--navy-mid, #1E3048);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 4px 16px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-    animation: dropdownIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
-}
-
-@keyframes dropdownIn {
-    from {
-        opacity: 0;
-        transform: translateY(-6px) scale(0.97);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Header row inside panel */
-.saved-trips__dropdown::before {
-    content: 'Saved Trips';
-    display: block;
-    padding: 0.85rem 1.1rem 0.6rem;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-    font-family: var(--font-body);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.4rem);
+  z-index: 200;
+  width: 340px;
+  max-width: calc(100vw - 2rem);
+  max-height: 360px;
+  overflow-y: auto;
+  background: rgba(22, 22, 30, 0.96);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .saved-trips__empty {
-    padding: 1.2rem 1.1rem;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.86rem;
-    margin: 0;
-    font-family: var(--font-body);
-    text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
-/* ── List ── */
 .saved-trips__list {
-    list-style: none;
-    margin: 0;
-    padding: 0.35rem 0;
-    max-height: 340px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
-}
-
-.saved-trips__list::-webkit-scrollbar {
-    width: 4px;
-}
-
-.saved-trips__list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.saved-trips__list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
+  list-style: none;
 }
 
 .saved-trips__item {
-    display: flex;
-    align-items: stretch;
-    margin: 0.2rem 0.5rem;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: background 0.12s ease;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
 }
 
-.saved-trips__item:hover {
-    background: rgba(255, 255, 255, 0.05);
+.saved-trips__item:last-child {
+  border-bottom: none;
 }
 
-/* Load button — takes up most of the row */
 .saved-trips__load-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-    padding: 0.7rem 0.85rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.12s;
-    border-radius: 10px 0 0 10px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  padding: 0.7rem 1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
 }
 
 .saved-trips__load-btn:hover {
-    background: rgba(232, 98, 74, 0.1);
+  background: var(--surface-alt);
 }
 
 .saved-trips__label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    font-family: var(--font-body);
-    line-height: 1.3;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
 }
 
 .saved-trips__date {
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.38);
-    font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
-/* Delete button — compact icon on the right */
 .saved-trips__delete-btn {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    background: none;
-    border: none;
-    border-left: 1px solid rgba(255, 255, 255, 0.07);
-    cursor: pointer;
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.25);
-    transition: background 0.12s, color 0.12s;
-    border-radius: 0 10px 10px 0;
+  margin-right: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
 }
 
 .saved-trips__delete-btn:hover {
-    background: rgba(224, 80, 80, 0.18);
-    color: #f07070;
-}
-
-/* ── Responsive ── */
-@media (max-width: 560px) {
-    .saved-trips__dropdown {
-        min-width: 280px;
-        left: auto;
-        right: 0;
-    }
+  color: var(--danger);
+  background: var(--danger-soft);
 }

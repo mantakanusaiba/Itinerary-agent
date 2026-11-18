@@ -57,10 +57,8 @@ export default function SavedTripsDropdown({ onLoad }) {
                 aria-haspopup="listbox"
                 aria-expanded={open}
             >
-                <span className="saved-trips__icon">🗂</span>
                 Saved trips
                 <span className="saved-trips__badge">{savedCount}</span>
-                <span className="saved-trips__chevron">{open ? "▲" : "▼"}</span>
             </button>
 
             {open && (
@@ -85,9 +83,9 @@ export default function SavedTripsDropdown({ onLoad }) {
                                         className="saved-trips__delete-btn"
                                         onClick={(e) => handleDelete(e, trip.id)}
                                         title="Delete this saved trip"
-                                        aria-label="Delete"
+                                        aria-label="Delete saved trip"
                                     >
-                                        ✕
+                                        Delete
                                     </button>
                                 </li>
                             ))}

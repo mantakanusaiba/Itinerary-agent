@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import "./TripForm.css";
 
 const VIBE_PRESETS = [
-  { emoji: "🍜", label: "Foodie" },
-  { emoji: "🏛️", label: "History" },
-  { emoji: "🌿", label: "Nature" },
-  { emoji: "🎨", label: "Culture" },
-  { emoji: "✨", label: "Luxury" },
+  { label: "Foodie" },
+  { label: "History" },
+  { label: "Nature" },
+  { label: "Culture" },
+  { label: "Luxury" },
 ];
 
 const DAY_OPTIONS = [
@@ -16,19 +16,17 @@ const DAY_OPTIONS = [
   { value: 7, label: "7+ Days" },
 ];
 const BUDGET_TIERS = [
-  { value: "budget", emoji: "🎒", label: "Budget", sublabel: "Street food & hostels" },
-  { value: "mid", emoji: "🏨", label: "Mid-range", sublabel: "Hotels & restaurants" },
-  { value: "splurge", emoji: "✨", label: "Splurge", sublabel: "Luxury & fine dining" },
+  { value: "budget", label: "Budget", sublabel: "Street food & hostels" },
+  { value: "mid", label: "Mid-range", sublabel: "Hotels & restaurants" },
+  { value: "splurge", label: "Splurge", sublabel: "Luxury & fine dining" },
 ];
 
-export default function TripForm({ onSubmit, disabled, collapsed, tripParams, onEdit }) {
+export default function TripForm({ onSubmit, disabled, collapsed, tripParams, onEdit, prefillCity }) {
   const [city, setCity] = useState(tripParams?.city || "");
   const [days, setDays] = useState(tripParams?.days || 4);
   const [vibe, setVibe] = useState(tripParams?.vibe || "");
   const [activeVibes, setActiveVibes] = useState([]);
   const [budgetTier, setBudgetTier] = useState(tripParams?.budgetTier || "mid");
-  const [isLoading, setIsLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
 
   // When the form switches from collapsed → expanded (edit mode),
   // sync all fields back from the current tripParams so the user
@@ -54,6 +52,11 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
     }
   }, [collapsed]);
 
+  // Destination picked from the landing showcase
+  useEffect(() => {
+    if (prefillCity) setCity(prefillCity);
+  }, [prefillCity]);
+
   function toggleVibe(label) {
     setActiveVibes((prev) => {
       const next = prev.includes(label) ? prev.filter((v) => v !== label) : [...prev, label];
@@ -67,40 +70,9 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
     e.preventDefault();
     if (!city.trim()) return;
 
-    setIsLoading(true);
-
-    setTimeout(() => {
-      const finalVibe = vibe.trim() || "local experience";
-      onSubmit({ city: city.trim(), days, vibe: finalVibe, budgetTier });
-      setIsLoading(false);
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
-    }, 1500);
+    const finalVibe = vibe.trim() || "local experience";
+    onSubmit({ city: city.trim(), days, vibe: finalVibe, budgetTier });
   }
-
-  // Add ripple effect to buttons
-  useEffect(() => {
-    const addRippleEffect = (e) => {
-      const button = e.currentTarget;
-      const ripple = document.createElement("span");
-      const rect = button.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-
-      ripple.style.width = ripple.style.height = size + "px";
-      ripple.style.left = x + "px";
-      ripple.style.top = y + "px";
-      ripple.classList.add("ripple");
-
-      button.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-    };
-
-    const buttons = document.querySelectorAll(".btn-primary, .days-btn, .vibe-chip");
-    buttons.forEach((btn) => btn.addEventListener("click", addRippleEffect));
-    return () => buttons.forEach((btn) => btn.removeEventListener("click", addRippleEffect));
-  }, [collapsed]); // re-attach when form expands
 
   // ── Compact sticky bar ──────────────────────────────────────────────
   if (collapsed && tripParams) {
@@ -109,7 +81,7 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
       <div className="trip-bar">
         <div className="trip-bar__inner">
           <div className="trip-bar__summary">
-            <span className="trip-bar__city">📍 {tripParams.city}</span>
+            <span className="trip-bar__city">{tripParams.city}</span>
             <span className="trip-bar__dot">·</span>
             <span className="trip-bar__detail">
               {tripParams.days} day{tripParams.days !== 1 ? "s" : ""}
@@ -117,10 +89,10 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
             <span className="trip-bar__dot">·</span>
             <span className="trip-bar__detail trip-bar__detail--vibe">{tripParams.vibe}</span>
             <span className="trip-bar__dot">·</span>
-            <span className="trip-bar__detail trip-bar__detail--budget">{tier.emoji} {tier.label}</span>
+            <span className="trip-bar__detail trip-bar__detail--budget">{tier.label}</span>
           </div>
           <button type="button" className="trip-bar__edit" onClick={onEdit}>
-            ✏️ Edit Trip
+            Edit trip
           </button>
         </div>
       </div>
@@ -135,37 +107,20 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
       className={`trip-form card${isEditing ? " trip-form--editing" : ""}`}
       onSubmit={handleSubmit}
     >
-      {/* Loading overlay */}
-      <div className={`trip-form__loading ${isLoading ? "active" : ""}`}>
-        <div className="loading-spinner"></div>
-      </div>
-
-      {/* Success animation */}
-      {showSuccess && (
-        <div className="success-checkmark show">
-          <svg className="checkmark-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle cx="26" cy="26" r="25" fill="none" />
-          </svg>
-          <svg className="checkmark-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <path fill="none" stroke="#2DB9A0" strokeWidth="3" d="M14 27 L22 35 L38 19" />
-          </svg>
-        </div>
-      )}
-
       <label className="field">
-        <span className="field__label">🌍 Destination</span>
+        <span className="field__label">Destination</span>
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          placeholder="e.g. Dhaka, Sylhet, Cox's Bazar…"
+          placeholder="e.g. Dhaka, Sylhet, Cox's Bazar"
           disabled={disabled}
           required
         />
       </label>
 
       <div className="field">
-        <span className="field__label">📅 Trip Length</span>
+        <span className="field__label">Trip length</span>
         <div className="days-picker">
           {DAY_OPTIONS.map((opt) => (
             <button
@@ -182,7 +137,7 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
       </div>
 
       <div className="field">
-        <span className="field__label">✨ Your Vibe</span>
+        <span className="field__label">Travel style</span>
         <div className="vibe-chips">
           {VIBE_PRESETS.map((v) => (
             <button
@@ -192,7 +147,7 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
               onClick={() => toggleVibe(v.label)}
               disabled={disabled}
             >
-              {v.emoji} {v.label}
+              {v.label}
             </button>
           ))}
         </div>
@@ -200,14 +155,14 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
           type="text"
           value={vibe}
           onChange={(e) => setVibe(e.target.value)}
-          placeholder="or describe your vibe…"
+          placeholder="Or describe your own style"
           disabled={disabled}
-          style={{ marginTop: "0.7rem" }}
+          className="field__extra"
         />
       </div>
 
       <div className="field">
-        <span className="field__label">💰 Budget Tier</span>
+        <span className="field__label">Budget</span>
         <div className="budget-picker">
           {BUDGET_TIERS.map((tier) => (
             <button
@@ -217,7 +172,6 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
               onClick={() => setBudgetTier(tier.value)}
               disabled={disabled}
             >
-              <span className="budget-btn__emoji">{tier.emoji}</span>
               <span className="budget-btn__label">{tier.label}</span>
               <span className="budget-btn__sublabel">{tier.sublabel}</span>
             </button>
@@ -229,14 +183,11 @@ export default function TripForm({ onSubmit, disabled, collapsed, tripParams, on
         <button
           type="submit"
           className="btn-primary"
-          disabled={disabled || !city.trim() || isLoading}
+          disabled={disabled || !city.trim()}
         >
-          <span className="btn-icon">🗺️</span>
           {disabled
-            ? "Researching like a local…"
-            : isLoading
-              ? "Planning..."
-              : "Plan My Local Itinerary"}
+            ? "Generating itinerary…"
+            : "Generate itinerary"}
         </button>
         {isEditing && (
           <button type="button" className="btn-cancel" onClick={onEdit}>

@@ -87,7 +87,7 @@ function Lightbox({ photos, initialIndex, stopName, onClose }) {
     <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={`Photos of ${stopName}`}>
       <div className="gallery-lightbox__backdrop" onClick={onClose} />
       <div className="gallery-lightbox__inner">
-        <button className="gallery-lightbox__close" onClick={onClose} aria-label="Close gallery">✕</button>
+        <button className="gallery-lightbox__close" onClick={onClose} aria-label="Close gallery">Close</button>
 
         <div className="gallery-lightbox__img-wrap">
           <img
@@ -100,8 +100,8 @@ function Lightbox({ photos, initialIndex, stopName, onClose }) {
 
         {photos.length > 1 && (
           <>
-            <button className="gallery-lightbox__nav gallery-lightbox__nav--prev" onClick={prev} aria-label="Previous">‹</button>
-            <button className="gallery-lightbox__nav gallery-lightbox__nav--next" onClick={next} aria-label="Next">›</button>
+            <button className="gallery-lightbox__nav gallery-lightbox__nav--prev" onClick={prev} aria-label="Previous">&lsaquo;</button>
+            <button className="gallery-lightbox__nav gallery-lightbox__nav--next" onClick={next} aria-label="Next">&rsaquo;</button>
             <div className="gallery-lightbox__dots">
               {photos.map((_, i) => (
                 <button
@@ -150,7 +150,6 @@ export default function PhotoGallery({ stopName, city, dayColor }) {
         onClick={handleOpen}
         aria-label={`View photos of ${stopName}`}
       >
-        <span className="gallery-toggle__icon">⬡</span>
         <span className="gallery-toggle__label">View photos</span>
       </button>
 
@@ -159,7 +158,7 @@ export default function PhotoGallery({ stopName, city, dayColor }) {
           <div className="gallery-lightbox" role="dialog">
             <div className="gallery-lightbox__backdrop" onClick={() => setOpen(false)} />
             <div className="gallery-lightbox__inner" style={{ color: "#fff", fontSize: "1rem" }}>
-              <button className="gallery-lightbox__close" onClick={() => setOpen(false)}>✕</button>
+              <button className="gallery-lightbox__close" onClick={() => setOpen(false)}>Close</button>
               Loading photos…
             </div>
           </div>
@@ -174,7 +173,7 @@ export default function PhotoGallery({ stopName, city, dayColor }) {
           <div className="gallery-lightbox" role="dialog">
             <div className="gallery-lightbox__backdrop" onClick={() => setOpen(false)} />
             <div className="gallery-lightbox__inner" style={{ color: "#fff", fontSize: "0.9rem", textAlign: "center" }}>
-              <button className="gallery-lightbox__close" onClick={() => setOpen(false)}>✕</button>
+              <button className="gallery-lightbox__close" onClick={() => setOpen(false)}>Close</button>
               <p style={{ margin: "1rem 0 0" }}>No photos found for <strong>{stopName}</strong>.</p>
             </div>
           </div>

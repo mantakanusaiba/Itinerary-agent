@@ -312,7 +312,6 @@ export default function ImageSlideshow({ stopName, city, dayColor }) {
   if (!images.length) {
     return (
       <div className="img-slideshow img-slideshow--placeholder" style={{ "--slide-color": dayColor }}>
-        <span className="img-slideshow__placeholder-icon">📍</span>
         <span className="img-slideshow__placeholder-text">{stopName}</span>
       </div>
     );
@@ -344,8 +343,8 @@ export default function ImageSlideshow({ stopName, city, dayColor }) {
 
       {images.length > 1 && showArrows && (
         <>
-          <button className="img-slideshow__arrow img-slideshow__arrow--prev" onClick={prev} aria-label="Previous">‹</button>
-          <button className="img-slideshow__arrow img-slideshow__arrow--next" onClick={next} aria-label="Next">›</button>
+          <button className="img-slideshow__arrow img-slideshow__arrow--prev" onClick={prev} aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></button>
+          <button className="img-slideshow__arrow img-slideshow__arrow--next" onClick={next} aria-label="Next"><span aria-hidden="true">&rsaquo;</span></button>
         </>
       )}
 

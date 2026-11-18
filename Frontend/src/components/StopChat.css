@@ -1,107 +1,45 @@
-/* ─── StopChat ────────────────────────────────────────────────────────────── */
+/* Stop chat */
 
-.stopchat {
-  margin-top: 1rem;
-  border-top: 1px solid var(--border);
-  padding-top: 0.85rem;
-}
-
-/* When nested inside stop-card__actions, parent overrides these */
-
-/* ── Toggle button — more prominent pill ── */
 .stopchat__toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
-  padding: 0.5em 1.1em;
-  border-radius: 100px;
+  padding: 0.3rem 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--primary);
+  background: transparent;
   border: none;
-  background: color-mix(in srgb, var(--chat-color, var(--coral)) 12%, transparent);
-  color: var(--chat-color, var(--coral));
-  font-size: 0.84rem;
-  font-weight: 700;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.18s ease;
-  line-height: 1;
-  letter-spacing: 0.01em;
-  position: relative;
-}
-
-.stopchat__toggle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 100px;
-  border: 1.5px solid var(--chat-color, var(--coral));
-  opacity: 0.5;
-  transition: opacity 0.18s ease;
-}
-
-.stopchat__toggle:hover::before {
-  opacity: 1;
 }
 
 .stopchat__toggle:hover {
-  background: color-mix(in srgb, var(--chat-color, var(--coral)) 18%, transparent);
+  text-decoration: underline;
 }
 
 .stopchat__toggle--open {
-  background: var(--chat-color, var(--coral));
-  color: #fff;
+  color: var(--text-secondary);
 }
 
-.stopchat__toggle--open::before {
-  opacity: 0;
-}
-
-.stopchat__toggle--open:hover {
-  background: color-mix(in srgb, var(--chat-color, var(--coral)) 88%, #000);
-}
-
-.stopchat__toggle-icon {
-  font-size: 1em;
-  line-height: 1;
-}
-
-/* ── Chat panel ── */
 .stopchat__panel {
-  margin-top: 0.75rem;
-  border: 2px solid color-mix(in srgb, var(--chat-color, var(--coral)) 30%, var(--border));
-  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: var(--white);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  animation: fadeSlideIn 0.2s ease;
 }
 
-/* Top accent stripe */
-.stopchat__panel::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, var(--chat-color, var(--coral)), color-mix(in srgb, var(--chat-color, var(--coral)) 50%, var(--gold)));
-}
-
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Messages area ── */
 .stopchat__messages {
-  padding: 0.9rem;
-  max-height: 280px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  scroll-behavior: smooth;
+  gap: 0.5rem;
+  max-height: 280px;
+  min-height: 120px;
+  overflow-y: auto;
+  padding: 0.75rem;
+  background: var(--surface-alt);
 }
 
-/* ── Empty state ── */
 .stopchat__empty {
   display: flex;
   flex-direction: column;
@@ -109,9 +47,8 @@
 }
 
 .stopchat__empty-hint {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
 }
 
 .stopchat__suggestions {
@@ -121,155 +58,115 @@
 }
 
 .stopchat__suggestion {
-  padding: 0.3em 0.8em;
-  border-radius: 100px;
-  border: 1px solid color-mix(in srgb, var(--chat-color, var(--coral)) 35%, var(--border));
-  background: color-mix(in srgb, var(--chat-color, var(--coral)) 6%, transparent);
-  color: var(--chat-color, var(--coral));
+  padding: 0.3rem 0.7rem;
   font-size: 0.78rem;
-  font-weight: 600;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.15s ease;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .stopchat__suggestion:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--chat-color, var(--coral)) 15%, transparent);
-  border-color: var(--chat-color, var(--coral));
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
-/* ── Message bubbles ── */
 .stopchat__bubble {
   display: flex;
-  gap: 0.55rem;
-  align-items: flex-start;
-  max-width: 90%;
+  max-width: 88%;
 }
 
 .stopchat__bubble--user {
   align-self: flex-end;
-  flex-direction: row-reverse;
+}
+
+.stopchat__bubble--assistant {
+  align-self: flex-start;
 }
 
 .stopchat__bubble-text {
-  padding: 0.55em 0.85em;
-  border-radius: 14px;
-  font-size: 0.86rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
   line-height: 1.5;
   white-space: pre-wrap;
+  word-break: break-word;
+  border-radius: var(--radius);
 }
 
 .stopchat__bubble--user .stopchat__bubble-text {
-  background: var(--chat-color, var(--coral));
-  color: #fff;
-  border-bottom-right-radius: 4px;
+  background: var(--grad-brand);
+  color: var(--on-primary);
 }
 
 .stopchat__bubble--assistant .stopchat__bubble-text {
-  background: var(--off-white);
-  color: var(--ink);
-  border-bottom-left-radius: 4px;
+  background: var(--surface-alt);
+  color: var(--text);
   border: 1px solid var(--border);
 }
 
-.stopchat__avatar {
-  flex-shrink: 0;
-  font-size: 0.85rem;
-  color: var(--chat-color, var(--coral));
-  margin-top: 0.3em;
-}
-
-/* Blinking cursor while streaming */
 .stopchat__cursor {
   display: inline-block;
   width: 2px;
-  height: 1em;
-  background: currentColor;
+  height: 0.9em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  animation: blink 0.8s step-end infinite;
+  background: var(--muted);
+  animation: stopchat-blink 1s steps(2) infinite;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+@keyframes stopchat-blink {
+  50% {
+    opacity: 0;
+  }
 }
 
-/* ── Error message ── */
 .stopchat__error {
   font-size: 0.8rem;
-  color: #c0392b;
-  margin: 0;
-  padding: 0.4em 0.7em;
-  background: #fdf0ef;
-  border-radius: var(--radius-sm);
-  border: 1px solid #f5c6c2;
+  color: var(--danger);
 }
 
-/* ── Input row ── */
 .stopchat__input-row {
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
-  padding: 0.6rem 0.75rem;
+  padding: 0.6rem;
   border-top: 1px solid var(--border);
-  background: var(--off-white);
+  background: var(--surface);
 }
 
 .stopchat__input {
   flex: 1;
   resize: none;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.5em 0.75em;
-  font-family: var(--font-body);
-  font-size: 0.87rem;
-  color: var(--ink);
-  background: var(--white);
-  line-height: 1.45;
-  max-height: 120px;
-  overflow-y: auto;
-  transition: border-color 0.15s ease;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
 }
 
 .stopchat__input:focus {
   outline: none;
-  border-color: var(--chat-color, var(--coral));
-}
-
-.stopchat__input::placeholder {
-  color: var(--muted);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 162, 74, 0.22);
 }
 
 .stopchat__send {
-  flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--on-primary);
+  background: var(--grad-brand);
   border: none;
-  background: var(--chat-color, var(--coral));
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  border-radius: var(--radius);
+  transition: background 0.15s ease;
+}
+
+.stopchat__send:hover:not(:disabled) {
+  background: var(--primary-hover);
 }
 
 .stopchat__send:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.stopchat__send:not(:disabled):hover {
-  transform: scale(1.08);
-}
-
-.stopchat__send-spin {
-  display: inline-block;
-  animation: spin 0.9s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+  opacity: 0.4;
 }
