@@ -11,6 +11,7 @@ import { streamItinerary, swapStop } from "./api.js";
 import { tryLoadFromUrl, clearUrlHash, encodeToUrl } from "./utils/shareUrl.js";
 import { saveTrip } from "./utils/savedTrips.js";
 import "./components/responsive.css";
+import "./components/polish.css";
 
 export default function App() {
   // "idle" | "loading" | "done" | "error"
@@ -165,6 +166,13 @@ export default function App() {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-header__inner">
+          <button type="button" className="brand" onClick={handleReset} aria-label="Go to trip planner home">
+            <span className="brand__mark" aria-hidden="true">L</span>
+            <span className="brand__copy">
+              <strong>Local Lens</strong>
+              <small>AI trip planner</small>
+            </span>
+          </button>
           <button
             type="button"
             className="history-btn"
@@ -206,9 +214,14 @@ export default function App() {
         {status === "idle" && (
           <>
             <section className="hero">
+              <p className="hero__eyebrow">Thoughtful trips, grounded in real local sources</p>
               <h2 className="hero__title">
-                Travel like <span>a local</span>
+                See more than the <span>usual</span>
               </h2>
+              <p className="hero__subtitle">
+                Build a practical, day-by-day itinerary shaped around your pace,
+                interests, and budget—not a generic top-ten list.
+              </p>
             </section>
 
             <DestinationShowcase onPick={handlePickDestination} />

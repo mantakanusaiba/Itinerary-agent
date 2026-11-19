@@ -1,0 +1,445 @@
+/* Final visual pass: shared rhythm, typography and responsive alignment. */
+
+:root {
+  --primary: #f2a65a;
+  --primary-hover: #ffc27c;
+  --primary-soft: rgba(242, 166, 90, 0.12);
+  --on-primary: #17100a;
+  --accent: #65c8bc;
+  --accent-soft: rgba(101, 200, 188, 0.12);
+  --grad-brand: linear-gradient(135deg, #ffc36f 0%, #f2954f 52%, #e76e63 100%);
+  --grad-soft: linear-gradient(135deg, rgba(242, 166, 90, 0.14), rgba(231, 110, 99, 0.08));
+  --bg: #090d12;
+  --surface: #111820;
+  --surface-alt: #17212b;
+  --glass: rgba(255, 255, 255, 0.045);
+  --border: rgba(232, 239, 244, 0.10);
+  --border-strong: rgba(232, 239, 244, 0.20);
+  --text: #f4f1eb;
+  --text-secondary: #c5c5c0;
+  --muted: #979b9d;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --max-width: 1180px;
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 24px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 18px 48px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 28px 72px rgba(0, 0, 0, 0.5);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  font-size: 1rem;
+  line-height: 1.65;
+  background:
+    radial-gradient(900px 520px at 50% -10%, rgba(242, 166, 90, 0.13), transparent 65%),
+    radial-gradient(760px 500px at 100% 28%, rgba(101, 200, 188, 0.07), transparent 65%),
+    var(--bg);
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.025em;
+}
+
+button, input, textarea, select {
+  font-size: 1rem;
+}
+
+.app-header {
+  padding: 1.25rem clamp(1rem, 3vw, 2rem) 0;
+}
+
+.app-header__inner {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0;
+  color: var(--text);
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+.brand__mark {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  color: var(--on-primary);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(242, 149, 79, 0.24);
+}
+
+.brand__copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand__copy strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.brand__copy small {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.history-btn,
+.btn-primary,
+.btn-secondary,
+.btn-save,
+.btn-cancel {
+  min-height: 2.75rem;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+}
+
+.app-main {
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 3vw, 2rem) 5rem;
+}
+
+.hero {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 0 1rem;
+}
+
+.hero__eyebrow {
+  margin-bottom: 1.1rem;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  font-size: clamp(3.15rem, 8vw, 6.8rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-transform: none;
+}
+
+.hero__subtitle {
+  max-width: 650px;
+  margin: 1.5rem auto 0;
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 1.7vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.showcase {
+  margin: clamp(2rem, 5vw, 4rem) 0 1rem;
+}
+
+.showcase__name,
+.plan-section__heading {
+  font-family: var(--font-display);
+  text-transform: none;
+  letter-spacing: -0.025em;
+}
+
+.showcase__name {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.showcase__country,
+.showcase__cta,
+.showcase__tagline {
+  font-size: 0.875rem;
+}
+
+.showcase__country {
+  letter-spacing: 0.08em;
+}
+
+.plan-section {
+  max-width: 940px;
+  margin: 4.5rem auto 0;
+}
+
+.plan-section__heading {
+  margin-bottom: 1.75rem;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.trip-form {
+  gap: 1.6rem;
+  padding: clamp(1.35rem, 4vw, 2.5rem);
+  border-radius: var(--radius-lg) !important;
+}
+
+.field__label {
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.trip-form input[type="text"] {
+  min-height: 3.25rem;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+}
+
+.days-btn, .vibe-chip, .budget-btn {
+  min-height: 2.75rem;
+  font-size: 0.9rem;
+}
+
+.budget-btn__label { font-size: 1rem; }
+.budget-btn__sublabel { font-size: 0.8125rem; }
+
+.trip-form__actions .btn-primary {
+  min-height: 3.25rem;
+  font-size: 1rem;
+}
+
+.results,
+.itinerary-view {
+  gap: 1.5rem;
+}
+
+.day-tabs {
+  flex-wrap: nowrap;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+}
+
+.day-tabs__tab {
+  flex: 1 0 9.5rem;
+  min-height: 4.25rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.day-tabs__label,
+.day-block__number,
+.stop-card__time-badge,
+.stop-card__why-label,
+.img-slideshow__counter,
+.stamp {
+  font-size: 0.75rem;
+}
+
+.day-tabs__theme,
+.stop-card__duration,
+.stop-card__source,
+.stop-card__swap-icon {
+  font-size: 0.875rem;
+}
+
+.day-block {
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+
+.day-block__header {
+  align-items: center;
+}
+
+.day-block__theme {
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.day-block__stops {
+  align-items: stretch;
+}
+
+.stop-card {
+  min-width: 0;
+  background: linear-gradient(180deg, #151d26, #10171f);
+}
+
+.stop-card__inner {
+  gap: 0.8rem;
+  padding: 1.15rem 1.15rem 1.25rem;
+}
+
+.stop-card__name {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.stop-card__description,
+.stop-card__why-quote p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.stop-card__swap-icon {
+  min-height: 2.25rem;
+  padding: 0.4rem 0.65rem;
+}
+
+.nearby-stops__trigger,
+.stopchat__trigger {
+  min-height: 2.5rem;
+  font-size: 0.875rem;
+}
+
+.map-view,
+.export-toolbar,
+.weather-widget,
+.sources-panel,
+.loading-state,
+.error-card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.map-view__toolbar-label,
+.map-view__mode,
+.map-view__status,
+.map-view__legend,
+.export-toolbar__date-label,
+.weather-widget__title,
+.weather-widget__toggle,
+.source-row,
+.loading-state__note {
+  font-size: 0.875rem;
+}
+
+.source-row__title,
+.sidebar-trip__city,
+.saved-trips__label,
+.weather-day__high,
+.weather-day__low {
+  font-size: 1rem;
+}
+
+.weather-day__label,
+.weather-day__date,
+.weather-day__label-text,
+.weather-day__rain,
+.sidebar-trip__meta,
+.sidebar-trip__date,
+.sidebar__eyebrow {
+  font-size: 0.75rem;
+}
+
+.site-footer {
+  margin-top: 2rem;
+  background: #0d141b;
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  border-image: none;
+}
+
+.site-footer__inner {
+  align-items: flex-start;
+  padding: 3rem clamp(1rem, 3vw, 2rem) 2rem;
+}
+
+.site-footer__brand {
+  max-width: 520px;
+}
+
+.site-footer__name {
+  margin-bottom: 0.6rem;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+
+.site-footer__tagline {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+.site-footer__contact {
+  max-width: 440px;
+}
+
+.site-footer__heading {
+  margin-bottom: 0.8rem;
+  color: var(--primary);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.site-footer__points {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  list-style: none;
+}
+
+.site-footer__points li::before {
+  content: "✓";
+  margin-right: 0.6rem;
+  color: var(--accent);
+}
+
+.site-footer__bottom {
+  padding: 1rem clamp(1rem, 3vw, 2rem) 1.5rem;
+  color: var(--muted);
+  border-top-color: var(--border);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 760px) {
+  .app-header { padding-top: 1rem; }
+  .brand__copy small { display: none; }
+  .history-btn { padding-inline: 0.85rem; }
+  .hero { padding-top: 2.5rem; }
+  .showcase__stage { height: 410px; }
+  .plan-section { margin-top: 3.5rem; }
+  .budget-picker { grid-template-columns: 1fr; }
+  .site-footer__inner { flex-direction: column; }
+}
+
+@media (max-width: 560px) {
+  .app-header__inner { padding: 0; }
+  .app-main { padding-inline: 1rem; }
+  .brand__mark { width: 2.25rem; height: 2.25rem; }
+  .brand__copy strong { font-size: 1.05rem; }
+  .history-btn { min-height: 2.5rem; font-size: 0.8125rem; }
+  .hero__title { font-size: clamp(3rem, 16vw, 4.25rem); }
+  .hero__subtitle { font-size: 0.95rem; }
+  .showcase { margin-inline: -1rem; }
+  .trip-form, .loading-state, .error-card { padding: 1.2rem; }
+  .days-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trip-form__actions { flex-direction: column; }
+  .trip-form__actions .btn-primary { width: 100%; }
+  .results__header { align-items: stretch; }
+  .results__header > button,
+  .results__header-actions,
+  .results__header-actions > button { flex: 1; }
+  .day-block__header { align-items: flex-start; flex-direction: column; }
+  .site-footer__bottom { flex-direction: column; }
+}
